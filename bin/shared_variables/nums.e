@@ -1,0 +1,11 @@
+NUM0	.data	0
+NUM1	.data	1
+NUM2	.data	2
+NUM3	.data	3
+NUM4	.data	4
+NUM5	.data	5
+NUM6	.data	6
+NUM7	.data	7
+NUM8	.data	8
+NUM9	.data	9
+NUM10	.data	10
