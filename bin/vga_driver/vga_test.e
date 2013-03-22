@@ -2,8 +2,10 @@ start           call set_black_screen set_black_screen_ra
                 cp pixel_x NUM_0
                 cp pixel_y NUM_0
 loop            be end pixel_x array_length
-				cp write_pixel_x pixel_x
-                cp write_pixel_y pixel_y
+		cp write_pixel_x1 pixel_x
+                cp write_pixel_y1 pixel_y
+		cp write_pixel_x2 pixel_x
+		cp write_pixel_y2 pixel_y
                 cpfa write_pixel_color color_array array_index
                 call write_pixel write_pixel_ra
                 add pixel_x pixel_x NUM_1
@@ -13,11 +15,11 @@ end             halt
 
 //Variables
 
-pixel_x         .data 0
-pixel_y         .data 0
-array_length	.data 30
-array_index		.data 0
-color_array     .data 10
+pixel_x         		.data 0
+pixel_y         		.data 0
+array_length			.data 30
+array_index			.data 0
+color_array     		.data 10
 				.data 11
 				.data 12
 				.data 13
