@@ -9,6 +9,7 @@ NUM7	.data	7
 NUM8	.data	8
 NUM9	.data	9
 NUM10	.data	10
+NUM13	.data	13
 NUM97	.data	97
 NUM98	.data	98
 NUM99	.data	99
@@ -35,8 +36,9 @@ NUM119	.data	119
 NUM120	.data	120
 NUM121	.data	121
 NUM122	.data	122
-
-
+NUM255	.data	255
+NUM479	.data	479
+NUM639	.data	639
 
 
 
