@@ -105,9 +105,9 @@ draw_d	call	write_pixel	write_pixel_ra
 		
 
 
-draw_string	.data	0 
-		.data	0 
-		.data	0 	
+draw_string	.data	97 //test purposes only
+		.data	98 //test purposes only
+		.data	99 //test purposes only	
 		.data	0
 		.data	0
 		.data	0
