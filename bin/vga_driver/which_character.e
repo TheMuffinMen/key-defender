@@ -29,8 +29,8 @@ case	be	 draw_a	  char_in  NUM97
    	be	 draw_b	  char_in  NUM98
    	be	 draw_c	  char_in  NUM99
    	be	 draw_d	  char_in  NUM100  
-   //	be	 draw_e	  char_in  NUM101
-   //	be	 draw_f	  char_in  NUM102
+   	be	 draw_e	  char_in  NUM101
+   	be	 draw_f	  char_in  NUM102
    //	be	 draw_g	  char_in  NUM103
    //	be	 draw_h	  char_in  NUM104
    //	be	 draw_i	  char_in  NUM105
@@ -102,15 +102,68 @@ draw_c	call	write_pixel	write_pixel_ra
 
 //Draws the letter D
 draw_d	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM3
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM5
+	cp	write_pixel_color	NUM0
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM5
+	sub	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM8
+	cp	write_pixel_x2	write_pixel_x1
+	sub	write_pixel_y1	write_pixel_y1	NUM7
+	add	write_pixel_y2	write_pixel_y1	NUM7
+	call	write_pixel	write_pixel_ra
+	be	incr	0	0		
+
+draw_e	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM7
+	add	write_pixel_y2	write_pixel_y1	NUM5
+	cp	write_pixel_color	NUM0
+	call	write_pixel	write_pixel_ra
+	cp	write_pixel_color	NUM255
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	be	incr	0	0
+
+draw_f	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM7
+	add	write_pixel_y2	write_pixel_y1	NUM7
+	cp	write_pixel_color	NUM0
+	call	write_pixel	write_pixel_ra
+	cp	write_pixel_color	NUM255
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	be	incr	0	0
+
+drag_g	call	write_pixel	write_pixel_ra
+	
+	be	incr	0	0
 		
 
 
-draw_string	.data	97 //test purposes only
-		.data	98 //test purposes only
-		.data	99 //test purposes only	
-		.data	0
-		.data	0
-		.data	0
+draw_string	.data	97 //for test purposes only; change back to 0
+		.data	98
+		.data	99	
+		.data	100
+		.data	101
+		.data	102
 		.data	0
 		.data	0
 		.data	0
