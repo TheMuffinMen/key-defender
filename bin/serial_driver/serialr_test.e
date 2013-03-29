@@ -9,8 +9,14 @@ ender		halt
 
 
 read_total		.data 0
-stop_total		.data 5
+stop_total		.data 7
 array			.data 0
+				.data 0
+				.data 0
+				.data 0
+				.data 0
+				.data 0
+				.data 0
 				.data 0
 				.data 0
 				.data 0
