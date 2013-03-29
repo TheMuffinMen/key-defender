@@ -13,15 +13,15 @@ end		halt
 #include which_character.e
 i_str_test	.data	0
 curr_char	.data	0
-str_test	.data	102
-		.data	103
-		.data	104
-		.data	105
+str_test	.data	97
+		.data	98
+		.data	99
+		.data	100
 		.data	106
 		.data	107
 		.data	108
 		.data	109
 		.data	110
-		.data	111
-		.data	0
+		.data	115
+		.data	117
 		.data	0
