@@ -11,6 +11,7 @@ NUM9	.data	9
 NUM10	.data	10
 NUM13	.data	13
 NUM21	.data	21
+NUM32	.data	32
 NUM97	.data	97
 NUM98	.data	98
 NUM99	.data	99
