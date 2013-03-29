@@ -21,7 +21,7 @@ str_test	.data	97
 		.data	107
 		.data	108
 		.data	109
-		.data	110
-		.data	115
 		.data	117
+		.data	118
+		.data	119
 		.data	0
