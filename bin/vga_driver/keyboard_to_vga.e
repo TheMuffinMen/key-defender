@@ -12,9 +12,9 @@ loop		call	key_response		key_response_ra
 		add	i_input			i_input		NUM1
 		be loop 0 0
 func_call	cp	str_copy_from		element_array_ptr
-		cp	str_copy_to		draw_string_ptr
+		cp	str_copy_to		draw_str_ptr
 		call	str_copy		str_copy_ra
-		call	draw_str		which_char_ra
+		call	draw_string		which_char_ra
 end		halt //ret	call_buff_ra
 
 element_array	.data	0

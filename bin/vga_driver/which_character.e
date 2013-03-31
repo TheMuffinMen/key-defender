@@ -6,12 +6,12 @@
 //Each character takes up a 10x10 grid
 
 //initializes drawing
-draw_str	cp	draw_char_tmpx	str_x_start
+draw_string	cp	draw_char_tmpx	str_x_start
 		cp	draw_char_tmpy	str_y_start
 
 //loop through string and store each element in char_in
 
-loop1	cpfa	char_in		draw_string	drawstr_i
+loop1	cpfa	char_in		draw_str	drawstr_i
 	be	done_draw	char_in	NUM0
 	cp	write_pixel_x1	draw_char_tmpx
 	cp	write_pixel_y1	draw_char_tmpy
@@ -48,9 +48,9 @@ case	be	 draw_a	  char_in  NUM97
    	be	 draw_u	  char_in  NUM117
    	be	 draw_v	  char_in  NUM118
    	be	 draw_w	  char_in  NUM119
-   //	be	 draw_x	  char_in  NUM120
-   //	be	 draw_y	  char_in  NUM121
-   //	be	 draw_z	  char_in  NUM122
+   	be	 draw_x	  char_in  NUM120
+   	be	 draw_y	  char_in  NUM121
+   	be	 draw_z	  char_in  NUM122
 done_draw   ret	 which_char_ra
 
 //This section handles the task of drawing the actual letter
@@ -328,23 +328,48 @@ draw_p	call	write_pixel	write_pixel_ra
 	be	incr	0	0
 
 draw_q	call	write_pixel	write_pixel_ra
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	cp	write_pixel_color	NUM0
+	call	write_pixel	write_pixel_ra
 	add	write_pixel_x1	write_pixel_x1	NUM2
 	add	write_pixel_y1	write_pixel_y1	NUM2
 	add	write_pixel_x2	write_pixel_x1	NUM5
 	add	write_pixel_y2	write_pixel_y1	NUM5
-	cp	write_pixel_color	NUM0
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM6
+	add	write_pixel_y1	write_pixel_y1	NUM6
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM8
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_y2	write_pixel_y1	NUM1
 	call	write_pixel	write_pixel_ra	
 	cp	write_pixel_color	NUM255
-	sub	write_pixel_x1	write_pixel_x2	NUM1
-	sub	write_pixel_y1	write_pixel_y2	NUM1
+	add	write_pixel_x1	write_pixel_x1	NUM9
+	cp	write_pixel_y1	write_pixel_y2
+	cp	write_pixel_x2	write_pixel_x1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM1
+	cp	write_pixel_x2	write_pixel_x1
+	sub	write_pixel_y1	write_pixel_y1	NUM1
+	cp	write_pixel_y2	write_pixel_y1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM1
+	cp	write_pixel_x2	write_pixel_x1	
+	sub	write_pixel_y1	write_pixel_y1	NUM1
+	cp	write_pixel_y2	write_pixel_y1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM1
+	sub	write_pixel_y1	write_pixel_y1	NUM1
 	cp	write_pixel_x2	write_pixel_x1
 	cp	write_pixel_y2	write_pixel_y1
 	call	write_pixel	write_pixel_ra
-	add	write_pixel_x1	write_pixel_x1	NUM1
-	add	write_pixel_y1	write_pixel_y1	NUM1
-	cp	write_pixel_y2	write_pixel_y1
-	cp	write_pixel_x2	write_pixel_x1
-	call	write_pixel	write_pixel_ra //come back and fix q later	
 	be	incr	0	0
 
 draw_r	call	write_pixel	write_pixel_ra
@@ -465,11 +490,91 @@ draw_w	call	write_pixel	write_pixel_ra
 	call	write_pixel	write_pixel_ra	
 	be	incr	0	0
 	
-draw_x	
+draw_x	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	cp	write_pixel_color	NUM255
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra	
+	add	write_pixel_y1	write_pixel_y1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	sub	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_y1	write_pixel_y1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_y1	write_pixel_y1	NUM6
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_y1	write_pixel_y1	NUM8
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra	
+	be	incr	0	0
 
+draw_y	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	cp	write_pixel_color	NUM255
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM8
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	sub	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	call	write_pixel	write_pixel_ra
+	sub	write_pixel_x1	write_pixel_x1	NUM4
+	add	write_pixel_x2	write_pixel_x1	NUM1		
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM5
+	call	write_pixel	write_pixel_ra	
+	be	incr	0	0
+
+draw_z	call	write_pixel	write_pixel_ra
+	cp	write_pixel_color	NUM0
+	add	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM5
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	add	write_pixel_y1	write_pixel_y1	NUM4
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	cp	write_pixel_color	NUM255
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	sub	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra
+	add	write_pixel_x1	write_pixel_x1	NUM2
+	add	write_pixel_x2	write_pixel_x1	NUM1
+	sub	write_pixel_y1	write_pixel_y1	NUM2
+	add	write_pixel_y2	write_pixel_y1	NUM1
+	call	write_pixel	write_pixel_ra	
 	be	incr	0	0
 	
-draw_string	.data	0 
+draw_str	.data	0 
 		.data	0
 		.data	0	
 		.data	0
@@ -489,7 +594,7 @@ draw_string	.data	0
 		.data	0
 		.data	0
 		.data	0
-draw_string_ptr	.data	draw_string
+draw_str_ptr	.data	draw_str
 str_x_start	.data	0
 str_y_start	.data	0
 char_in	       	.data	0
