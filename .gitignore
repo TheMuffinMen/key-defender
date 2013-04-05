@@ -2,3 +2,6 @@
 *.labels
 *.mif
 *~
+*.pyc
+*.bin
+*.out
