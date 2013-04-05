@@ -65,4 +65,4 @@ str_send_index				.data 0
 str_send_char				.data 0
 str_send_ra					.data 0
 
-#include ../shared_variables/nums.e
+//#include ../shared_variables/nums.e

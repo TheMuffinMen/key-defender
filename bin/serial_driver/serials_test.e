@@ -5,7 +5,7 @@
 			halt
 
 elt			.data 0
-index		.data 0
+index			.data 0
 str			.data 97
 			.data 102
 			.data 112

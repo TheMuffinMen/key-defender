@@ -29,19 +29,20 @@ element_array	.data	0
 		.data	0
 		.data	0
 		.data	0
+		.data	0
 element_array_ptr	.data	element_array
 i_input		.data	0
 
 
 //Parameters str_copy_from, str_copy_to
-str_copy		cp str_copy_index NUM0
-str_copy_loop	cpfa str_copy_elt 0 str_copy_from
-			cpta str_copy_elt 0 str_copy_to
-				be str_copy_ret str_copy_elt NUM0
-				add str_copy_from str_copy_from NUM1
-				add str_copy_to str_copy_to NUM1
-				be str_copy_loop 0 0
-str_copy_ret	ret str_copy_ra
+str_copy	cp 	str_copy_index 	NUM0
+str_copy_loop	cpfa 	str_copy_elt 	0 		str_copy_from
+		cpta 	str_copy_elt 	0 		str_copy_to
+		be 	str_copy_ret 	str_copy_elt 	NUM0
+		add 	str_copy_from 	str_copy_from 	NUM1
+		add 	str_copy_to 	str_copy_to NUM1
+		be 	str_copy_loop 	0 0
+str_copy_ret	ret 	str_copy_ra
 
 str_copy_from	.data 0
 str_copy_to		.data 0
