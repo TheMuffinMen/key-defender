@@ -2,20 +2,21 @@
 start		call	set_black_screen	set_black_screen_ra
 		cp	str_x_start		NUM10
 		cp	str_y_start		NUM10
-		//ret	start_ra
-break		call  	key_input    		key_input_ra
+		ret	start_ra
+//break		call  	key_input    		key_input_ra
 loop		call	key_response		key_response_ra
 		be	loop			key_execute	NUM0
 		be	loop			key_input_pressed	NUM1
-		be	func_call	key_input_element	NUM32
+		//	be	func_call		key_input_element	NUM32
+		be	is32			key_input_element	NUM32
 		cpta	key_input_element	element_array	i_input
 		add	i_input			i_input		NUM1
-		be loop 0 0
+		ret	loop_ra
 func_call	cp	str_copy_from		element_array_ptr
 		cp	str_copy_to		draw_str_ptr
 		call	str_copy		str_copy_ra
-		call	draw_string		which_char_ra
-end		halt //ret	call_buff_ra
+		call	draw_string		which_char_ra 
+		ret	func_call_ra
 
 element_array	.data	0
 		.data	0
