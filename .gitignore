@@ -2,3 +2,4 @@
 *.labels
 *.mif
 *~
+*.pyc
