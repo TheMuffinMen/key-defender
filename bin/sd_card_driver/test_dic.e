@@ -4,7 +4,7 @@
    cp	 sd_write	   NUM0
 
 check be end   sd_address_low	NUM10
-      call     sdcard	      sdcard_ret
+      call     sdcard	      sdcard_ra
       cpta     sd_data_read   dict_str	  i_dict
       add      i_dict	      i_dict	  NUM1
       add      sd_address_low sd_address_low NUM1

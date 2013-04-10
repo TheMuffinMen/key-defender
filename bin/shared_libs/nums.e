@@ -9,7 +9,9 @@ NUM7	.data	7
 NUM8	.data	8
 NUM9	.data	9
 NUM10	.data	10
+NUM12   .data   12
 NUM13	.data	13
+NUM14   .data   14
 NUM21	.data	21
 NUM32	.data	32
 NUM50	.data	50
@@ -42,5 +44,8 @@ NUM122	.data	122
 NUM255	.data	255
 NUM479	.data	479
 NUM639	.data	639
+NUM16384    .data   16384
+NUM25309    .data   25309
+NUM17851    .data   17851
+NUM28672    .data   28672
 NUM30000	.data	30000
-NUM47448    .data   47448   
