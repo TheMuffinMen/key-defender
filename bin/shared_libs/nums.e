@@ -43,9 +43,4 @@ NUM255	.data	255
 NUM479	.data	479
 NUM639	.data	639
 NUM30000	.data	30000
-
-
-
-
-
-
+NUM47448    .data   47448   
