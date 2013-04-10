@@ -25,6 +25,6 @@ dict_str    .data    0
 	    .data    0
 	    .data    0
 
-#include sdcarddriver.e
-#include ../shared_variables/nums.e 
+#include sd_card_driver.e
+#include ../shared_libs/nums.e 
    

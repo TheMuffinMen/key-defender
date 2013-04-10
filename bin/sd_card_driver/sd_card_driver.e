@@ -27,6 +27,8 @@ read	in	86		sd_data_read
 
 	be 	sdloop2		sd_num0	sd_num0
 
+
+
 sd_num0		.data 0
 sd_num1		.data 1
 sd_write	.data 0
