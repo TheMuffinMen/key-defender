@@ -17,12 +17,12 @@ str1        .data 100
             .data 0
 str1_ptr    .data str1
 
-str2        .data 97
+str2        .data 100
             .data 112
-            .data 109
-            .data 103
+            .data 108
+            .data 120
             .data 98
-            .data 117
+            .data 0
             .data 122
             .data 0
             .data 0
@@ -31,3 +31,6 @@ str2        .data 97
 str2_ptr    .data str2
 
 elt         .data 0
+
+#include str_help.e
+#include nums.e
