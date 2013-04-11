@@ -1,5 +1,5 @@
 def d_filter():
-	allowable_chars = "abcdefghigklmnopqrstuvwxyz0123456789"
+	allowable_chars = "abcdefghijklmnopqrstuvwxyz0123456789"
 	allow = True
 	dic = []
 	new_dic = []

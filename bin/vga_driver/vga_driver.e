@@ -75,5 +75,4 @@ array_xend		.data	0
 array_yend		.data	0
 temp_xend		.data	0
 
-//NUMs
-#include ../shared_variables/nums.e
+#include ../shared_libs/nums.e

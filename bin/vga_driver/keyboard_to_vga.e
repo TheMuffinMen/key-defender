@@ -52,4 +52,3 @@ str_copy_ra		.data 0
 
 #include which_character.e
 #include ../keyboard_driver/driver.e
-

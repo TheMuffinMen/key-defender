@@ -604,5 +604,5 @@ draw_char_tmpy2	.data	0
 draw_char_tmpy 	.data	0
 which_char_ra  	.data	0
 drawstr_i		.data	0
-#include vga_driver.e
 
+#include vga_driver.e
