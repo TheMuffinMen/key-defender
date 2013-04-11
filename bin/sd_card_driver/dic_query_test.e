@@ -5,13 +5,13 @@
         halt
 
 
-str         .data 100
-            .data 114
+str         .data 106
             .data 97
-            .data 105
-            .data 110
-            .data 101
-            .data 114
+            .data 108
+            .data 111
+            .data 112
+            .data 121
+            .data 0
             .data 0
             .data 0
             .data 0

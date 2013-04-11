@@ -46,7 +46,7 @@ NUM479	.data	479
 NUM639	.data	639
 NUM16384    .data   16384
 NUM25309    .data   25309
-NUM17851    .data   17851
+NUM18673    .data   18673
 NUM28672    .data   28672
 NUM30000	.data	30000
 NUM32767    .data   32767
