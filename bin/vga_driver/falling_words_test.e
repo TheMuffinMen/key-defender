@@ -11,10 +11,12 @@ print_moved_array	call	draw_string		which_char_ra
 clock_end_check		in	5			clock_end
 			be	end			clock_end		NUM30000
 			sub	clock_diff		clock_end		clock_start
-			bne	clock_end_check		clock_diff		NUM50
+			bne	clock_end_check		clock_diff		NUM2
 clear_command		call	clear_array		clear_array_ra
-			cp	str_y_start		array_yend
+			add	str_y_start		str_y_start		NUM2			
+			add	array_ystart		array_ystart		NUM2
 			cp	drawstr_i		NUM0
+			cp	length_i		NUM0
 			be	print_moved_array	NUM1			NUM1
 end			halt
 	
