@@ -249,6 +249,6 @@ dq_rindex           .data 0
 dq_read_index_ra    .data 0
 
 #include sd_card_driver.e
-#include ../shared_libs/str_help.e
-#include ../shared_libs/nums.e
+//#include ../shared_libs/str_help.e
+//#include ../shared_libs/nums.e
 #include ../microphone_driver/microphone_driver.e

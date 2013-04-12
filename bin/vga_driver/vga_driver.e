@@ -36,7 +36,7 @@ check_clear2	    	in 	61 			vga_response
                     	
 
 erase_typed		out 	62 			NUM1		
-		    	sub	array_xstart		erase_x			NUM24
+		    	cp	array_xstart		erase_x			
 		    	cp	array_ystart		erase_y
 		    	add	array_xend		erase_x			NUM127
 		    	add	array_yend		erase_y			NUM10         				
@@ -47,11 +47,11 @@ delete_typed		out 	63 			array_xstart  //Set coordinates for the rectangle
                     	out 	67 			NUM0  //Set color of rectangle to black
                     	out 	60 			NUM1
 check_cleartyped1      	in 	61 vga_response
-                    	bne 	check_clear1 		vga_response 		NUM1
+                    	bne 	check_cleartyped1	vga_response 		NUM1
 		    	out 	60 			NUM0
 check_cleartyped2    	in 	61 			vga_response
-		    	bne 	check_clear2 		vga_response 		NUM0
-                    	ret 	erase_function_ra
+		    	bne 	check_cleartyped2	vga_response 		NUM0
+                    	ret 	erase_typed_ra
 //Function - write_pixel
 //Writes a pixel of a given color at the specified (x,y) coordinate
 //Parameters: write_pixel_x, write_pixel_y, write_pixel_color
@@ -68,6 +68,55 @@ check_res1_wp       in 61 vga_response
 check_res0_wp	    in 61 vga_response
 		    bne check_res0_wp vga_response NUM0
                     ret write_pixel_ra
+                    
+draw_play_screen	cp	write_pixel_color	NUM12
+			cp	write_pixel_x1		NUM0
+			cp	write_pixel_y1		NUM470
+			cp	write_pixel_x2		NUM640
+			cp	write_pixel_y2		NUM480
+			call	write_pixel		write_pixel_ra
+			cp	write_pixel_color	NUM111
+			cp	write_pixel_x1		NUM230
+			cp	write_pixel_y1		NUM449
+			cp	write_pixel_x2		NUM410
+			cp	write_pixel_y2		NUM469
+			call	write_pixel		write_pixel_ra
+			cp	write_pixel_color	NUM37
+			cp	write_pixel_x1		NUM270
+			cp	write_pixel_y1		NUM443
+			cp	write_pixel_x2		NUM370
+			cp	write_pixel_y2		NUM448
+			call	write_pixel		write_pixel_ra
+			cp	write_pixel_color	NUM37
+dome_draw		add	write_pixel_x1		write_pixel_x1		NUM4
+			sub	write_pixel_y1		write_pixel_y1		NUM2
+			sub	write_pixel_x2		write_pixel_x2		NUM4
+			sub	write_pixel_y2		write_pixel_y2		NUM2
+			call	write_pixel		write_pixel_ra
+			add	dome_i			dome_i			NUM1
+			bne	dome_draw		dome_i			NUM11
+			cp	write_pixel_color	NUM12
+			add	write_pixel_x1		write_pixel_x1		NUM5
+			sub	write_pixel_y1		write_pixel_y1		NUM2
+			sub	write_pixel_x2		write_pixel_x2		NUM5
+			sub	write_pixel_y2		write_pixel_y2		NUM6
+			call	write_pixel		write_pixel_ra
+			cp	write_pixel_color	NUM0
+			cp	write_pixel_x1		NUM250
+			cp	write_pixel_y1		NUM452
+			cp	write_pixel_x2		NUM390
+			cp	write_pixel_y2		NUM466
+			call	write_pixel		write_pixel_ra
+			cp	write_pixel_color	NUM12
+			cp	write_pixel_x1		NUM0
+			cp	write_pixel_y1		NUM20
+			cp	write_pixel_x2		NUM640
+			cp	write_pixel_y2		NUM21
+			call	write_pixel		write_pixel_ra
+			ret	draw_play_screen_ra
+			
+
+
 
 //Variables
 
@@ -91,6 +140,9 @@ length_i		.data	0
 erase_function_ra	.data	0
 erase_x			.data	0
 erase_y			.data	0
+erase_typed_ra		.data	0
+dome_i			.data	0
+draw_play_screen_ra	.data	0
 			
 
 //write_pixel parameters

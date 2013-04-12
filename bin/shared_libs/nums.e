@@ -14,6 +14,8 @@ NUM12   .data   12
 NUM13	.data	13
 NUM14   .data   14
 NUM16	.data	16
+NUM18	.data	18
+NUM19	.data	19
 NUM20	.data	20
 NUM21	.data	21
 NUM22	.data	22
@@ -61,6 +63,7 @@ NUM119	.data	119
 NUM120	.data	120
 NUM121	.data	121
 NUM122	.data	122
+NUM123	.data	123
 NUM127	.data	127
 NUM128	.data	128
 NUM133	.data	133
@@ -84,10 +87,14 @@ NUM255	.data	255
 NUM256	.data	256
 NUM263  .data   263
 NUM270	.data	270
+NUM319	.data	319
+NUM321	.data	321
 NUM370	.data	370
 NUM390	.data	390
 NUM410	.data	410
 NUM418	.data	418
+NUM419	.data	419
+NUM420	.data	420
 NUM431	.data	431
 NUM432	.data	432
 NUM434	.data	434
