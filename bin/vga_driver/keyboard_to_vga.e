@@ -15,7 +15,7 @@ loop		call	key_response		key_response_ra
 func_call	cp	str_copy_from		element_array_ptr
 		cp	str_copy_to		draw_str_ptr
 		call	str_copy		str_copy_ra
-		call	draw_string		which_char_ra 
+		call	draw_string		draw_string_ra 
 		ret	func_call_ra
 
 element_array	.data	0
@@ -32,6 +32,7 @@ element_array	.data	0
 		.data	0
 element_array_ptr	.data	element_array
 i_input		.data	0
+start_ra	.data	0
 
 
 //Parameters str_copy_from, str_copy_to
