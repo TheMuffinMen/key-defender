@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
        cout << "Improper Arguments." << endl;
        return 0;
    } else if (argv[1] == dic) {
-       cout << "Here" << endl;
        vector<string> words;
        f_name = "words.bin";
        
