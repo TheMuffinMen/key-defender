@@ -1,4 +1,19 @@
 		call	set_black_screen	set_black_screen_ra
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		call	ufo_draw_loop		ufo_draw_loop_ra
 ufo_loop2	in	5			clock_start
 end_chk		in	5			clock_end
@@ -28,6 +43,8 @@ ufo_draw_loop	be	ufo_draw_ret		ufo_i			NUM10
 		cpfa	ufo_deref		0			ufo_cur
 		cp	ufo_y			ufo_deref
 		be	not_erase		ufo_erase		NUM0
+		cp	erase_x			ufo_x
+		cp	erase_y			ufo_y
 		call	erase_function		erase_function_ra
 		add	ufo_y			ufo_y			NUM2
 		cpta	ufo_y			0			ufo_cur
