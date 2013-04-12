@@ -8,6 +8,7 @@
 //initializes drawing
 draw_string	cp	draw_char_tmpx	str_x_start
 		cp	draw_char_tmpy	str_y_start
+		cp	drawstr_i	NUM0
 
 //loop through string and store each element in char_in
 
@@ -51,7 +52,7 @@ case	be	 draw_a	  char_in  NUM97
    	be	 draw_x	  char_in  NUM120
    	be	 draw_y	  char_in  NUM121
    	be	 draw_z	  char_in  NUM122
-done_draw   ret	 which_char_ra
+done_draw   ret	 draw_string_ra
 
 //This section handles the task of drawing the actual letter
 //User has to specify the starting point
@@ -602,7 +603,7 @@ draw_char_tmpx 	.data	0
 draw_char_tmpx2	.data	0
 draw_char_tmpy2	.data	0
 draw_char_tmpy 	.data	0
-which_char_ra  	.data	0
+draw_string_ra  	.data	0
 drawstr_i		.data	0
 
 #include vga_driver.e
