@@ -23,6 +23,8 @@ int main()
 	    chars.push_back(0);
       }
    }
+   for (int i = 0; i < 9867; ++i)
+       chars.push_back(0);
 
    ofstream output;
    output.open ("words.bin",ios::out | ios::binary);
