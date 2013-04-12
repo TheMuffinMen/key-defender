@@ -1,3 +1,4 @@
+NUM_minus_1 .data -1
 NUM0	.data	0
 NUM1	.data	1
 NUM2	.data	2
@@ -46,6 +47,7 @@ NUM255	.data	255
 NUM263  .data   263
 NUM479	.data	479
 NUM639	.data	639
+NUM1001	.data	1001
 NUM16384    .data   16384
 NUM25309    .data   25309
 NUM18673    .data   18673
