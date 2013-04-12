@@ -7,21 +7,21 @@ loop_test_str	cpfa	curr_char	str_test	i_str_test
 		cpta	curr_char	draw_str	i_str_test
 incr_test	add	i_str_test	i_str_test	NUM1
 		be	loop_test_str	0		0
-func_call	call	draw_string	which_char_ra
+func_call	call	draw_string	draw_string_ra
 end		halt
 
 #include which_character.e
 i_str_test	.data	0
 curr_char	.data	0
-str_test	.data	97
-		.data	98
-		.data	99
-		.data	100
-		.data	106
-		.data	107
-		.data	108
-		.data	120
-		.data	121
-		.data	122
-		.data	113
+str_test	.data	48
+		.data	49
+		.data	50
+		.data	51
+		.data	52
+		.data	53
+		.data	115
+		.data	55
+		.data	56
+		.data	57
+		.data	0	
 		.data	0
