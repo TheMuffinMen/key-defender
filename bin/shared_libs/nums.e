@@ -24,9 +24,16 @@ NUM40	.data	40
 NUM41	.data	41
 NUM42	.data	42
 NUM46	.data	46
+NUM48	.data	48
+NUM49	.data	49
 NUM50	.data	50
 NUM51	.data	51
+NUM52	.data	52
+NUM53	.data	53
+NUM54	.data	54
 NUM55	.data	55
+NUM56	.data	56
+NUM57	.data	57
 NUM58	.data	58
 NUM60	.data	60
 NUM62	.data	62
