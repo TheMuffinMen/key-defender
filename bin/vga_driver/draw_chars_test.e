@@ -15,13 +15,13 @@ i_str_test	.data	0
 curr_char	.data	0
 str_test	.data	48
 		.data	49
-		.data	99
-		.data	100
-		.data	106
-		.data	107
-		.data	108
-		.data	120
-		.data	121
-		.data	122
-		.data	113
+		.data	50
+		.data	51
+		.data	52
+		.data	53
+		.data	115
+		.data	55
+		.data	56
+		.data	57
+		.data	0	
 		.data	0
