@@ -87,6 +87,7 @@ NUM180	.data	180
 NUM192	.data	192
 NUM193	.data	193
 NUM196	.data	196
+NUM197	.data	197
 NUM200	.data	200
 NUM230	.data	230
 NUM250	.data	250
@@ -96,8 +97,12 @@ NUM263  .data   263
 NUM270	.data	270
 NUM319	.data	319
 NUM321	.data	321
+NUM354	.data	354
+NUM358	.data	358
+NUM364	.data	364
 NUM370	.data	370
 NUM390	.data	390
+NUM408	.data	408
 NUM410	.data	410
 NUM418	.data	418
 NUM419	.data	419
@@ -119,6 +124,7 @@ NUM469	.data	469
 NUM470	.data	470
 NUM479	.data	479
 NUM480	.data	480
+NUM531	.data	531
 NUM578	.data	578
 NUM639	.data	639
 NUM640	.data	640
