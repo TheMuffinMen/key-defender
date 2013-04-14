@@ -154,7 +154,7 @@ done_rand	    cp	    dq_imid_low	        addr_low_rand
 
 		cp      sd_address_low  addr_low_rand
 		cp	sd_address_high addr_high_rand
-rand_cp_word	be	done_rand_1	    i_rand	    NUM9
+rand_cp_word	be	done_rand_1	    i_rand	    NUM10
 		call	sdcard		sdcard_ra
 		cpta	sd_data_read	rand_array  i_rand
 		add	i_rand		i_rand	    NUM1
