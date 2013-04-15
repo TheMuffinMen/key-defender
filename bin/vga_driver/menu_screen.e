@@ -7,15 +7,15 @@ menu_screen     cp      sd_address_low      NUM0
                 cp      write_const_y       NUM0
 menu_outer      be      choose_mode         write_const_y   NUM480
                 cp      write_const_x       NUM0
-menu_inner      be      menu_outer          write_const_x   NUM640
+menu_inner      be      menu_y_incr         write_const_x   NUM640
                 call    sdcard              sdcard_ra
                 cp      write_pixel_color   sd_data_read
                 call    draw_menu           write_pixel_ra
-                be      modify_sd_high      sd_address_low  NUM32767
+                be      modify_sd_high      sd_address_low  NUM16384
                 add     sd_address_low      sd_address_low  NUM1
 menu_x_incr     add     write_const_x       write_const_x   NUM1
                 be      menu_inner          0               0
-                add     write_const_y       write_const_y   NUM1
+menu_y_incr     add     write_const_y       write_const_y   NUM1
                 be      menu_outer          0               0
                         
 modify_sd_high     add      sd_address_high     sd_address_high     NUM1
