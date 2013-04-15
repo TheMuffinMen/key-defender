@@ -68,7 +68,16 @@ check_res1_wp       in 61 vga_response
 check_res0_wp	    in 61 vga_response
 		    bne check_res0_wp vga_response NUM0
                     ret write_pixel_ra
-                    
+draw_menu           out 62  NUM1
+                    out 63  write_const_x
+                    out 64  write_const_y
+                    out 65  write_const_x
+                    out 66  write_const_y
+                    out 67  write_pixel_color
+                    out 60  NUM1
+                    be  check_res1_wp   0       0
+
+
 draw_play_screen	cp	write_pixel_color	NUM12
 			cp	write_pixel_x1		NUM0
 			cp	write_pixel_y1		NUM470
@@ -158,5 +167,7 @@ array_ystart		.data	0
 array_xend		.data	0
 array_yend		.data	0
 temp_xend		.data	0
+write_const_x   .data   0
+write_const_y   .data   0
 
 #include ../shared_libs/nums.e

@@ -2,5 +2,6 @@
 start   call   menu_screen  menu_screen_ra
         halt
 #include menu_screen.e
-#include ../shared_libs/nums.e
-#include ../keyboard_driver/driver.e 
+#include ../keyboard_driver/driver.e
+#include ../sd_card_driver/sd_card_driver.e
+#include ../vga_driver/vga_driver.e
