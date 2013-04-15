@@ -5,13 +5,15 @@ menu_screen     cp      sd_address_low      NUM0
                 cp      sd_address_high     NUM0
                 cp      write_const_x       NUM0
                 cp      write_const_y       NUM0
+                cp      sd_write            NUM0
+                call    set_black_screen    set_black_screen_ra
 menu_outer      be      choose_mode         write_const_y   NUM480
                 cp      write_const_x       NUM0
 menu_inner      be      menu_y_incr         write_const_x   NUM640
                 call    sdcard              sdcard_ra
                 cp      write_pixel_color   sd_data_read
                 call    draw_menu           write_pixel_ra
-                be      modify_sd_high      sd_address_low  NUM16384
+                be      modify_sd_high      sd_address_low  NUM32767
                 add     sd_address_low      sd_address_low  NUM1
 menu_x_incr     add     write_const_x       write_const_x   NUM1
                 be      menu_inner          0               0
