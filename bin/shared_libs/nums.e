@@ -15,6 +15,7 @@ NUM12   .data   12
 NUM13	.data	13
 NUM14   .data   14
 NUM16	.data	16
+NUM17	.data	17
 NUM18	.data	18
 NUM19	.data	19
 NUM20	.data	20
@@ -130,6 +131,9 @@ NUM578	.data	578
 NUM639	.data	639
 NUM640	.data	640
 NUM1001	.data	1001
+NUM1276	.data	1276
+NUM1721	.data	1721
+NUM2048	.data 	2048
 NUM16383    .data   16383
 NUM16384    .data   16384
 NUM25309    .data   25309
