@@ -95,7 +95,7 @@ eval_loop	be	clear_box		ufo_i			NUM10
 		cp	num_str_ptr		ann_cntr_ptr
 		call	inc_str			inc_str_ra		
 		call	update_ann		update_ann_ra
-		be	clear_box		0			0
+		be	eval_loop		0			0
 		
 str_to_serial	cp	str_copy_from		user_str_ptr
 		cp	str_copy_to		dq_qstr_ptr
