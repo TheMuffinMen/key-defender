@@ -129,7 +129,7 @@ callsd		call	sdcard		sdcard_ra
 
 addsd		add	sd_address_low	sd_address_low	NUM1
 
-		be	testend		sd_address_low	sdnum16421
+		be	testend		sd_address_low	sdnum16384
 
 		be	clearlow	sd_address_low	sdnum32768
 		
@@ -150,7 +150,7 @@ end18		ret	read_sound_to_ram_ra
 
 
 sdnum32768	.data 32768
-sdnum16421	.data 16350
+sdnum16384	.data 16384
 read_sound_to_ram_ra	.data 0
 
 

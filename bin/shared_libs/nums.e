@@ -25,6 +25,7 @@ NUM22	.data	22
 NUM24	.data	24
 NUM30	.data	30
 NUM32	.data	32
+NUM35   .data   35
 NUM37	.data	37
 NUM40	.data	40
 NUM41	.data	41
@@ -160,8 +161,11 @@ NUM1721	.data	1721
 NUM2048	.data 	2048
 NUM16383    .data   16383
 NUM16384    .data   16384
+NUM16500	.data	16500
+NUM16519    .data	16519
 NUM25309    .data   25309
 NUM18673    .data   18673
 NUM28672    .data   28672
 NUM30000	.data	30000
 NUM32767    .data   32767
+NUM32768	.data 32768
