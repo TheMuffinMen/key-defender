@@ -62,6 +62,8 @@ case	be	 draw_a	  char_in  NUM97
 	be	 draw_7	  char_in  NUM55
 	be	 draw_8	  char_in  NUM56
 	be	 draw_9	  char_in  NUM57
+	be	 draw_space char_in NUM32
+	be	 draw_colon char_in NUM7
 done_draw   ret	 draw_string_ra
 
 //This section handles the task of drawing the actual letter
@@ -696,8 +698,22 @@ draw_9	call	write_pixel	write_pixel_ra
 	call	write_pixel	write_pixel_ra
 	be	incr		0		0
 
+draw_space  cp	write_pixel_color   NUM0
+	    call    write_pixel	    write_pixel_ra
+	    be	    incr	0		0
 
-	
+draw_colon  cp	write_pixel_color    NUM0
+	    call    write_pixel	    write_pixel_ra
+	    cp	    write_pixel_color	NUM255
+	    add	    write_pixel_y1  write_pixel_y1  NUM2
+	    add	    write_pixel_y2  write_pixel_y1  NUM1
+	    add	    write_pixel_x2  write_pixel_x1  NUM1
+	    call    write_pixel	    write_pixel_ra
+	    add	    write_pixel_y1  write_pixel_y1  NUM4
+	    add	    write_pixel_y2  write_pixel_y1  NUM1
+	    call    write_pixel	    write_pixel_ra
+	    be	    incr	    0		    0
+	    
 draw_str	.data	0 
 		.data	0
 		.data	0	
