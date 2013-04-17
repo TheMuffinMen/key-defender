@@ -1,12 +1,13 @@
 //This program is going to allow the user to switch between the different
 //modes at the menu screen
 
-menu_screen     cp      sd_address_low      NUM0
-                cp      sd_address_high     NUM0
-                cp      write_const_x       NUM0
+menu_screen     call	soundtoram	    read_sound_to_ram_ra
+		cp      sd_address_low      NUM16500
+                cp      sd_address_high     NUM17
+      		cp      write_const_x       NUM0
                 cp      write_const_y       NUM0
                 cp      sd_write            NUM0
-                call    set_black_screen    set_black_screen_ra
+             //   call    set_black_screen    set_black_screen_ra
 menu_outer      be      choose_mode         write_const_y   NUM480
                 cp      write_const_x       NUM0
 menu_inner      be      menu_y_incr         write_const_x   NUM640
@@ -33,10 +34,13 @@ mode_select call    key_response    key_response_ra
             be      mode_select     0                   0
 
 sp_menu     cp      which_mode      NUM1
+	    call    laser1	    laser1_ra		
             be      done_menu       0                   0
 mp_menu     cp      which_mode      NUM2
+	    call	laser1		laser1_ra
 done_menu   ret     menu_screen_ra
 
+#include ../sd_ram_driver/all_sounds.e
 which_mode      .data   0
 menu_screen_ra  .data   0
 menu_tmp        .data   0         
