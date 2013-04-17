@@ -52,6 +52,65 @@ check_cleartyped1      	in 	61 vga_response
 check_cleartyped2    	in 	61 			vga_response
 		    	bne 	check_cleartyped2	vga_response 		NUM0
                     	ret 	erase_typed_ra
+                    	
+                  
+erase_mult_update	out 	62 			NUM1		
+		    	cp	array_xstart		NUM350			
+		    	cp	array_ystart		NUM4
+		    	cp	array_xend		NUM640
+		    	cp	array_yend		NUM15     				
+delete_mult		out 	63 			array_xstart  //Set coordinates for the rectangle 
+		    	out	64 			array_ystart  //of the array we want to erase
+                    	out 	65 			array_xend
+                    	out 	66 			array_yend
+                    	out 	67 			NUM0  //Set color of rectangle to black
+                    	out 	60 			NUM1
+check_multtyped1      	in 	61 vga_response
+                    	bne 	check_multtyped1	vga_response 		NUM1
+		    	out 	60 			NUM0
+check_multtyped2    	in 	61 			vga_response
+		    	bne 	check_multtyped2	vga_response 		NUM0
+                    	ret 	erase_mult_update_ra   
+                    	
+                    	
+erase_update_ann	out 	62 			NUM1		
+		    	cp	array_xstart		NUM149			
+		    	cp	array_ystart		NUM4
+		    	cp	array_xend		NUM188
+		    	cp	array_yend		NUM15     				
+delete_ann		out 	63 			array_xstart  //Set coordinates for the rectangle 
+		    	out	64 			array_ystart  //of the array we want to erase
+                    	out 	65 			array_xend
+                    	out 	66 			array_yend
+                    	out 	67 			NUM0  //Set color of rectangle to black
+                    	out 	60 			NUM1
+check_anntyped1      	in 	61 vga_response
+                    	bne 	check_anntyped1	vga_response 		NUM1
+		    	out 	60 			NUM0
+check_anntyped2    	in 	61 			vga_response
+		    	bne 	check_anntyped2	vga_response 		NUM0
+                    	ret 	erase_update_ann_ra   
+                    	
+                    	
+erase_update_sent	out 	62 			NUM1		
+		    	cp	array_xstart		NUM285			
+		    	cp	array_ystart		NUM4
+		    	cp	array_xend		NUM324
+		    	cp	array_yend		NUM15     				
+delete_sent		out 	63 			array_xstart  //Set coordinates for the rectangle 
+		    	out	64 			array_ystart  //of the array we want to erase
+                    	out 	65 			array_xend
+                    	out 	66 			array_yend
+                    	out 	67 			NUM0  //Set color of rectangle to black
+                    	out 	60 			NUM1
+check_senttyped1      	in 	61 vga_response
+                    	bne 	check_senttyped1	vga_response 		NUM1
+		    	out 	60 			NUM0
+check_senttyped2    	in 	61 			vga_response
+		    	bne 	check_senttyped2	vga_response 		NUM0
+                    	ret 	erase_update_sent_ra                
+                  
+              
 //Function - write_pixel
 //Writes a pixel of a given color at the specified (x,y) coordinate
 //Parameters: write_pixel_x, write_pixel_y, write_pixel_color
@@ -152,6 +211,9 @@ erase_y			.data	0
 erase_typed_ra		.data	0
 dome_i			.data	0
 draw_play_screen_ra	.data	0
+erase_mult_update_ra	.data	0
+erase_update_sent_ra	.data	0
+erase_update_ann_ra	.data	0
 			
 
 //write_pixel parameters

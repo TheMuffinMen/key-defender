@@ -7,19 +7,20 @@ ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_data	NUM12
 		call	key_init		key_init_ra
 		call	draw_play_screen	draw_play_screen_ra
-		cp	words_sent		NUM0
-		cp	words_annhilated	NUM0
-		call	update_scores		update_scores_ra
+		call	update_ann		update_ann_ra
+		call	update_sent		update_sent_ra
 		cp	cur_mode		NUM0
 		cp	user_str_len		NUM0
 		cp	queue_len		NUM0
 		cp	ufo_cntr		NUM0
 		cp	last_pos		NUM0
 		in 	5			clock_start
+		in	5			clock_start_sp
 break		cp	sent_i			NUM0
 		
 		
-game_loop	call	key_response		key_response_ra	
+game_loop	be	sp_game_loop		which_mode		NUM1	
+		call	key_response		key_response_ra	
 		be	game_serial		key_execute		NUM0
 		be	game_serial		key_input_pressed	NUM1
 		be 	mode_change		key_input_element	NUM10
@@ -27,6 +28,17 @@ game_loop	call	key_response		key_response_ra
 		blt	game_serial		key_input_element	NUM97
 		blt	add_char		key_input_element	NUM123
 		be	game_serial		0			0
+		
+		
+sp_game_loop	call	key_response		key_response_ra	
+		be	clock_update		key_execute		NUM0
+		be	clock_update		key_input_pressed	NUM1
+		be 	mode_change		key_input_element	NUM10
+		be	eval_str		key_input_element	NUM32
+		blt	clock_update		key_input_element	NUM97
+		blt	add_char		key_input_element	NUM123
+		be	clock_update		0			0
+
 		
 mode_change	be	cur_mode1		cur_mode		NUM1
 		cp	cur_mode		NUM1
@@ -76,7 +88,12 @@ eval_loop	be	clear_box		ufo_i			NUM10
 		cp	erase_y			ufo_deref
 		call	erase_function		erase_function_ra
 		sub	ufo_cntr		ufo_cntr		NUM1
-		//  Place in "killed alien" sound
+		not	laser_switcher		laser_switcher
+		and	laser_switcher		laser_switcher		NUM1
+		be	use_laser1		NUM1			laser_switcher
+		call	lasergun		lasergun_ra
+use_laser1	call	laser1			laser1_ra
+		call	update_ann		update_ann_ra
 		be	clear_box		0			0
 		
 str_to_serial	cp	str_copy_from		user_str_ptr
@@ -88,11 +105,15 @@ str_to_serial	cp	str_copy_from		user_str_ptr
 		cp	str_copy_to		str_send_ptr
 		call	str_copy		str_copy_ra
 		call	str_send		str_send_ra
-		// Play valid word (word sent) sound
+		call	chimes			chimes_ra
+		call	update_mult_status	update_mult_status_ra
+		call	update_sent		update_sent_ra
+		be	clear_box		0			0
 		
 		
-not_found_sound	be	clear_box		0			0 
-		// input sound for wrong word
+not_found_sound	call	update_mult_status	update_mult_status_ra 
+		call	buzzer			buzzer_ra
+		be	clear_box		0			0
 
 
 clear_box	cp	erase_x			NUM256
@@ -243,11 +264,23 @@ update_loop	be	clock_update		queue_i			queue_len
 		add	queue_i			queue_i			NUM1
 		be	update_loop		0			0
 		
-clock_update	in	5			clock_end
+clock_update	be	clock_mp		which_mode		NUM2
+		in	5			clock_end_sp
+		sub	clock_diff_sp		clock_end_sp		clock_start_sp
+		be	random_ufo		clock_diff_sp		NUM10
+clock_mp	in	5			clock_end
 		sub	clock_diff		clock_end		clock_start
-		blt	game_loop		clock_diff		NUM2
+		blt	game_loop		clock_diff		NUM1
 		in 	5			clock_start
-		be	move_ufos		0			0		
+		be	move_ufos		0			0
+		
+		
+		
+random_ufo	halt
+		
+		
+		
+				
 		
 move_ufos	cp	ufo_i			NUM0	
 move_ufos_loop	be	lose_check		ufo_i			NUM10
@@ -296,24 +329,72 @@ check_outside	bne	lose_check_loop		free_y			NUM408
 		
 send_lose	cp	serial_send_data	NUM3
 		call	serial_send		serial_send_ra
+		call	gameover		gameover_ra
 		be	end_game		0			0
 		
 				
 						
 end_game	halt		
 		
-update_ann	cp	str_copy_from		WORDS_ANN_STR_PTR
+update_ann	call	erase_update_ann	erase_update_ann_ra	
+		cp	str_copy_from		WORDS_ANN_STR_PTR
 		cp	str_copy_to		draw_str_ptr
 		call	str_copy		str_copy_ra
-		cp	str_x_start		NUM300	
+		cp	str_x_start		NUM6	
 		cp	str_y_start		NUM4
 		call	draw_string		draw_string_ra
 		cp	str_copy_from		ann_cntr_ptr
 		cp	str_copy_to		draw_str_ptr
-		cp	str_x_start		NUM
-		cp	str_y_start
+		cp	str_x_start		NUM149
+		cp	str_y_start		NUM4
+		call	str_copy		str_copy_ra
 		call	draw_string		draw_string_ra		
-				
+		ret	update_ann_ra
+		
+		
+update_sent	call	erase_update_sent	erase_update_sent_ra
+		cp	str_copy_from		WORDS_SENT_STR_PTR
+		cp	str_copy_to		draw_str_ptr
+		call	str_copy		str_copy_ra
+		cp	str_x_start		NUM220	
+		cp	str_y_start		NUM4
+		call	draw_string		draw_string_ra
+		cp	str_copy_from		sent_cntr_ptr
+		cp	str_copy_to		draw_str_ptr
+		cp	str_x_start		NUM285
+		cp	str_y_start		NUM4
+		call	str_copy		str_copy_ra
+		call	draw_string		draw_string_ra		
+		ret	update_sent_ra
+		
+update_mult_status	call	erase_mult_update	erase_mult_update_ra
+			be	disp_not_a_word		dic_query_result	NUM0				
+			cp	str_copy_from		SENT_WORD_STR_PTR
+			cp	str_copy_to		draw_str_ptr
+			call	str_copy		str_copy_ra
+			cp	str_x_start		NUM374	
+			cp	str_y_start		NUM4
+			call	draw_string		draw_string_ra
+			cp	str_copy_from		user_str_ptr
+			cp	str_copy_to		draw_str_ptr
+			call	str_copy		str_copy_ra
+			cp	str_x_start		NUM507
+			cp	str_y_start		NUM4
+			call	draw_string		draw_string_ra
+			be	end_mult_status_loop	0			0
+disp_not_a_word		cp	str_copy_from		NOT_A_WORD_PTR
+			cp	str_copy_to		draw_str_ptr
+			cp	str_x_start		NUM361
+			cp	str_y_start		NUM4
+			call	str_copy		str_copy_ra
+			call	draw_string		draw_string_ra		
+			cp	str_copy_from		user_str_ptr
+			cp	str_copy_to		draw_str_ptr
+			call	str_copy		str_copy_ra
+			cp	str_x_start		NUM507
+			cp	str_y_start		NUM4
+			call	draw_string		draw_string_ra
+end_mult_status_loop	ret	update_mult_status_ra
 		
 		
 		
@@ -355,27 +436,15 @@ update_ann	cp	str_copy_from		WORDS_ANN_STR_PTR
 
 
 update_scores_ra	.data	0
-
-WORDS_SENT_STR	.data	119
-		.data	111
-		.data	114
-		.data	100
-		.data	115
-		.data	32
-		.data	115
+which_mode	.data	2
+WORDS_SENT_STR	.data	115
 		.data	101
 		.data	110
 		.data	116
 		.data	7
 		.data	0
-WORD_SENT_STR_PTR	.data	WORDS_SENT_STR
-WORDS_ANN_STR	.data	119
-		.data	111
-		.data	114
-		.data	100
-		.data	115
-		.data	32
-		.data	97
+WORDS_SENT_STR_PTR	.data	WORDS_SENT_STR
+WORDS_ANN_STR	.data	97
 		.data	110
 		.data	110
 		.data	104
@@ -387,7 +456,7 @@ WORDS_ANN_STR	.data	119
 		.data	100
 		.data	7
 		.data	0
-WORD_ANN_STR_PTR	.data	WORD_ANN_STR
+WORDS_ANN_STR_PTR	.data	WORDS_ANN_STR
 
 NOT_A_WORD	.data	110
 		.data	111
@@ -403,32 +472,35 @@ NOT_A_WORD	.data	110
 		.data	0
 NOT_A_WORD_PTR	.data	NOT_A_WORD
 
-SENT_WORD_STR	.data	115
-		.data	101
-		.data	110
-		.data	116
-		.data	32
-		.data	119
+SENT_WORD_STR	.data	119
 		.data	111
 		.data	114
 		.data	100
+		.data	32
+		.data	115
+		.data	101
+		.data	110
+		.data	116
 		.data	7
 		.data	0
 SENT_WORD_STR_PTR	.data	SENT_WORD_STR
 
-sent_cntr	.data	0
-		.data	0
+sent_cntr	.data	49
+		.data	50
 		.data	0
 		.data	0
 sent_cntr_ptr	.data	sent_cntr
 
-ann_cntr	.data	0
-		.data	0
+ann_cntr	.data	50
+		.data	50
 		.data	0
 		.data	0
 ann_cntr_ptr	.data	ann_cntr
 	
-
+update_ann_ra	.data	0
+update_sent_ra	.data	0
+update_mult_status_ra	.data	0
+laser_switcher	.data	0
 
 
 
@@ -484,6 +556,11 @@ ufo_erase	.data	0
 clock_start	.data	0
 clock_end	.data	0
 clock_diff	.data	0
+clock_start_sp	.data	0
+clock_end_sp	.data	0
+clock_diff_sp	.data	0
+
+
 ufo_objects	.data	ufo1
 		.data	ufo2
 		.data	ufo3
@@ -717,3 +794,4 @@ ufo_queue5	.data	0
 #include ../serial_driver/serial_driver.e
 #include ../keyboard_driver/driver.e
 #include ../sd_card_driver/dic_lib.e
+#include ../sd_ram_driver/all_sounds.e
