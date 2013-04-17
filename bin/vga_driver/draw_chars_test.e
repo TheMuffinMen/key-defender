@@ -18,8 +18,8 @@ str_test	.data	48
 		.data	50
 		.data	51
 		.data	52
-		.data	53
-		.data	115
+		.data	7
+		.data	55
 		.data	55
 		.data	56
 		.data	57

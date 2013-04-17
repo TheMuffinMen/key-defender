@@ -7,15 +7,19 @@ ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_data	NUM12
 		call	key_init		key_init_ra
 		call	draw_play_screen	draw_play_screen_ra
+		cp	words_sent		NUM0
+		cp	words_annhilated	NUM0
+		call	update_scores		update_scores_ra
 		cp	cur_mode		NUM0
 		cp	user_str_len		NUM0
 		cp	queue_len		NUM0
 		cp	ufo_cntr		NUM0
+		cp	last_pos		NUM0
 		in 	5			clock_start
 break		cp	sent_i			NUM0
 		
 		
-game_loop	call	key_response		key_response_ra
+game_loop	call	key_response		key_response_ra	
 		be	game_serial		key_execute		NUM0
 		be	game_serial		key_input_pressed	NUM1
 		be 	mode_change		key_input_element	NUM10
@@ -73,7 +77,7 @@ eval_loop	be	clear_box		ufo_i			NUM10
 		call	erase_function		erase_function_ra
 		sub	ufo_cntr		ufo_cntr		NUM1
 		//  Place in "killed alien" sound
-		be	eval_loop		0			0
+		be	clear_box		0			0
 		
 str_to_serial	cp	str_copy_from		user_str_ptr
 		cp	str_copy_to		dq_qstr_ptr
@@ -113,7 +117,7 @@ add_char	be	game_serial		user_str_len		NUM10
 		be	game_serial		0			0
 			
 game_serial	call	check_serial		check_serial_ra
-		be	game_loop		check_serial_exist	NUM0
+		be	add_ufos		check_serial_exist	NUM0	
 		be	end_game		check_serial_data	NUM3
 gs_loop		cpta	check_serial_data	received_str		sent_i
 		add	sent_i			sent_i			NUM1
@@ -132,10 +136,10 @@ add_to_queue	cp	sent_i			NUM0
 		be	add_ufos		0			0
 		
 add_ufos	be	clock_update		ufo_cntr		NUM10	
-		cp	pos1_free		NUM1
-		cp	pos2_free		NUM1
-		cp	pos3_free		NUM1
-		cp	pos4_free		NUM1
+		cp	pos_i			NUM0
+init_pos	cpta	NUM1			pos_free		pos_i
+		add	pos_i			pos_i			NUM1
+		bne	init_pos		pos_i			NUM4
 		cp	ufo_i			NUM0		
 free_space	be	apply_queue		ufo_i			NUM10
 		cpfa	ufo_cur			ufo_objects		ufo_i
@@ -153,37 +157,49 @@ free_space	be	apply_queue		ufo_i			NUM10
 cont_free	be	change_pos1		free_x			NUM30
 		be	change_pos2		free_x			NUM197
 		be	change_pos3		free_x			NUM364
-		cp	pos4_free		NUM0
+		cpta	NUM0			pos_free		NUM3
 		be	free_space		0			0
-change_pos1	cp	pos1_free		NUM0
+change_pos1	cpta	NUM0			pos_free		NUM0
 		be	free_space		0			0
-change_pos2	cp	pos2_free		NUM0
+change_pos2	cpta	NUM0			pos_free		NUM1
 		be	free_space		0			0
-change_pos3	cp	pos3_free		NUM0
+change_pos3	cpta	NUM0			pos_free		NUM2
 		be 	free_space		0			0
 		
 apply_queue	cp	ufo_i			NUM0
 		cp	queue_limit		queue_len
 add_loop	be	queue_update		ufo_i			queue_limit
 		be	queue_update		ufo_cntr		NUM10
-		add	ufo_i			ufo_i			NUM1
-		be 	add_to_pos1		pos1_free		NUM1
-		be	add_to_pos2		pos2_free		NUM1
-		be 	add_to_pos3		pos3_free		NUM1
-		be	add_to_pos4		pos4_free		NUM1
-		be	add_loop		0			0
+		cp	pos_i			last_pos
+		cp	pos_cntr		NUM0
+pos_loop	cpfa	pos_temp		pos_free		pos_i
+		bne	pos_iterate		pos_temp		NUM1
+		be 	add_to_pos1		pos_i			NUM0
+		be	add_to_pos2		pos_i			NUM1
+		be 	add_to_pos3		pos_i			NUM2
+		be	add_to_pos4		pos_i			NUM3
+pos_iterate	bne	skip_reset		pos_i			NUM3
+		cp	pos_i			NUMNEG1
+skip_reset	add	pos_i			pos_i			NUM1
+		add	pos_cntr		pos_cntr		NUM1
+		bne	pos_loop		pos_cntr		NUM4
+		be	queue_update		0			0
 
 add_to_pos1	call	find_free		find_free_ra
 		cp	free_x			NUM30
+		cp	last_pos		NUM1
 		be	draw_added		0			0		
 add_to_pos2	call	find_free		find_free_ra
 		cp	free_x			NUM197
+		cp	last_pos		NUM2
 		be	draw_added		0			0
 add_to_pos3	call	find_free		find_free_ra
 		cp	free_x			NUM364
+		cp	last_pos		NUM3
 		be	draw_added		0			0
 add_to_pos4	call	find_free		find_free_ra
 		cp	free_x			NUM531
+		cp	last_pos		NUM0
 		be	draw_added		0			0
 		
 draw_added	cpta	NUM1			0			ufo_cur
@@ -205,6 +221,7 @@ draw_added	cpta	NUM1			0			ufo_cur
 		call	draw_ufo		draw_ufo_ra
 		add	ufo_cntr		ufo_cntr		NUM1
 		sub	queue_len		queue_len		NUM1
+		add	ufo_i			ufo_i			NUM1
 		be	add_loop		0			0
 		
 find_free	cp	free_i			NUM0
@@ -252,7 +269,7 @@ move_ufos_loop	be	lose_check		ufo_i			NUM10
 		cp	erase_x			ufo_x
 		cp	erase_y			ufo_y
 		call	erase_function		erase_function_ra
-		add	ufo_y			ufo_y			NUM2
+ufos_erased	add	ufo_y			ufo_y			NUM2
 		cpta	ufo_y			0			ufo_cur
 		call	draw_ufo		draw_ufo_ra
 		be	move_ufos_loop		0			0
@@ -285,7 +302,18 @@ send_lose	cp	serial_send_data	NUM3
 						
 end_game	halt		
 		
-		
+update_ann	cp	str_copy_from		WORDS_ANN_STR_PTR
+		cp	str_copy_to		draw_str_ptr
+		call	str_copy		str_copy_ra
+		cp	str_x_start		NUM300	
+		cp	str_y_start		NUM4
+		call	draw_string		draw_string_ra
+		cp	str_copy_from		ann_cntr_ptr
+		cp	str_copy_to		draw_str_ptr
+		cp	str_x_start		NUM
+		cp	str_y_start
+		call	draw_string		draw_string_ra		
+				
 		
 		
 		
@@ -325,10 +353,86 @@ end_game	halt
 //		be	ufo_draw_loop		0			0
 //ufo_draw_ret	ret	ufo_draw_loop_ra
 
-pos1_free	.data	0
-pos2_free	.data	0	
-pos3_free	.data	0
-pos4_free	.data	0
+
+update_scores_ra	.data	0
+
+WORDS_SENT_STR	.data	119
+		.data	111
+		.data	114
+		.data	100
+		.data	115
+		.data	32
+		.data	115
+		.data	101
+		.data	110
+		.data	116
+		.data	7
+		.data	0
+WORD_SENT_STR_PTR	.data	WORDS_SENT_STR
+WORDS_ANN_STR	.data	119
+		.data	111
+		.data	114
+		.data	100
+		.data	115
+		.data	32
+		.data	97
+		.data	110
+		.data	110
+		.data	104
+		.data	105
+		.data	108
+		.data	97
+		.data	116
+		.data	101
+		.data	100
+		.data	7
+		.data	0
+WORD_ANN_STR_PTR	.data	WORD_ANN_STR
+
+NOT_A_WORD	.data	110
+		.data	111
+		.data	116
+		.data	32
+		.data	97
+		.data	32
+		.data	119
+		.data	111
+		.data	114
+		.data	100
+		.data	7
+		.data	0
+NOT_A_WORD_PTR	.data	NOT_A_WORD
+
+SENT_WORD_STR	.data	115
+		.data	101
+		.data	110
+		.data	116
+		.data	32
+		.data	119
+		.data	111
+		.data	114
+		.data	100
+		.data	7
+		.data	0
+SENT_WORD_STR_PTR	.data	SENT_WORD_STR
+
+sent_cntr	.data	0
+		.data	0
+		.data	0
+		.data	0
+sent_cntr_ptr	.data	sent_cntr
+
+ann_cntr	.data	0
+		.data	0
+		.data	0
+		.data	0
+ann_cntr_ptr	.data	ann_cntr
+	
+
+
+
+
+
 free_x		.data	0
 free_y		.data	0
 free_i		.data	0
@@ -361,6 +465,15 @@ received_str	.data	0
 		.data	0
 		.data	0
 received_str_ptr	.data	received_str
+pos_i		.data	0
+last_pos	.data	0
+pos_cntr	.data	0
+pos_free	.data	0
+		.data	0
+		.data	0
+		.data	0
+pos_temp	.data	0
+
 
 
 ufo_i		.data	0
