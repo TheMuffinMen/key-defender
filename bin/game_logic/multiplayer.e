@@ -1,5 +1,6 @@
-		call	set_black_screen	set_black_screen_ra
+		call	menu_screen		menu_screen_ra	
 		call	init_serial		init_serial_ra
+		call	set_black_screen	set_black_screen_ra
 		cp	serial_send_data	NUM12
 		call	serial_send		serial_send_ra
 ready_check	call	check_serial		check_serial_ra
@@ -7,6 +8,8 @@ ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_data	NUM12
 		call	key_init		key_init_ra
 		call	draw_play_screen	draw_play_screen_ra
+		cp	ann_cntr		NUM48
+		cp	sent_cntr		NUM48
 		call	update_ann		update_ann_ra
 		call	update_sent		update_sent_ra
 		cp	cur_mode		NUM0
@@ -88,11 +91,9 @@ eval_loop	be	clear_box		ufo_i			NUM10
 		cp	erase_y			ufo_deref
 		call	erase_function		erase_function_ra
 		sub	ufo_cntr		ufo_cntr		NUM1
-		not	laser_switcher		laser_switcher
-		and	laser_switcher		laser_switcher		NUM1
-		be	use_laser1		NUM1			laser_switcher
-		call	lasergun		lasergun_ra
-use_laser1	call	laser1			laser1_ra
+		call	laser1			laser1_ra
+		cp	num_str_ptr		ann_cntr_ptr
+		call	inc_str			inc_str_ra		
 		call	update_ann		update_ann_ra
 		be	clear_box		0			0
 		
@@ -107,6 +108,8 @@ str_to_serial	cp	str_copy_from		user_str_ptr
 		call	str_send		str_send_ra
 		call	chimes			chimes_ra
 		call	update_mult_status	update_mult_status_ra
+		cp	num_str_ptr		sent_cntr_ptr
+		call	inc_str			inc_str_ra
 		call	update_sent		update_sent_ra
 		be	clear_box		0			0
 		
@@ -436,7 +439,6 @@ end_mult_status_loop	ret	update_mult_status_ra
 
 
 update_scores_ra	.data	0
-which_mode	.data	2
 WORDS_SENT_STR	.data	115
 		.data	101
 		.data	110
@@ -485,14 +487,14 @@ SENT_WORD_STR	.data	119
 		.data	0
 SENT_WORD_STR_PTR	.data	SENT_WORD_STR
 
-sent_cntr	.data	49
-		.data	50
+sent_cntr	.data	0
+		.data	0
 		.data	0
 		.data	0
 sent_cntr_ptr	.data	sent_cntr
 
-ann_cntr	.data	50
-		.data	50
+ann_cntr	.data	0
+		.data	0
 		.data	0
 		.data	0
 ann_cntr_ptr	.data	ann_cntr
@@ -795,3 +797,5 @@ ufo_queue5	.data	0
 #include ../keyboard_driver/driver.e
 #include ../sd_card_driver/dic_lib.e
 #include ../sd_ram_driver/all_sounds.e
+#include ../vga_driver/menu_screen.e
+#include inc_str.e

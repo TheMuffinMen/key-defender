@@ -20,12 +20,15 @@ menu_x_incr     add     write_const_x       write_const_x   NUM1
                 be      menu_inner          0               0
 menu_y_incr     add     write_const_y       write_const_y   NUM1
                 be      menu_outer          0               0
+                
+             
                         
 modify_sd_high     add      sd_address_high     sd_address_high     NUM1
                    cp       sd_address_low      NUM0
                    be       menu_x_incr         0                   0
 
 choose_mode call    key_init        key_init_ra
+		call	draw_play_screen	draw_play_screen_ra
 mode_select call    key_response    key_response_ra
             be      mode_select     key_execute         NUM0
             be      mode_select     key_input_pressed   NUM1
@@ -40,7 +43,7 @@ mp_menu     cp      which_mode      NUM2
 	    call	laser1		laser1_ra
 done_menu   ret     menu_screen_ra
 
-#include ../sd_ram_driver/all_sounds.e
+
 which_mode      .data   0
 menu_screen_ra  .data   0
 menu_tmp        .data   0         

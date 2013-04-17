@@ -137,7 +137,8 @@ draw_menu           out 62  NUM1
                     be  check_res1_wp   0       0
 
 
-draw_play_screen	cp	write_pixel_color	NUM12
+draw_play_screen	cp	dome_i			NUM0	
+			cp	write_pixel_color	NUM12
 			cp	write_pixel_x1		NUM0
 			cp	write_pixel_y1		NUM470
 			cp	write_pixel_x2		NUM640
