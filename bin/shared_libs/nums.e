@@ -1,3 +1,4 @@
+NUMNEG1	.data	-1
 NUM0	.data	0
 NUM1	.data	1
 NUM2	.data	2
