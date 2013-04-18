@@ -47,6 +47,7 @@ NUM62	.data	62
 NUM71   .data   71
 NUM75	.data	75
 NUM78	.data	78
+NUM80	.data	80
 NUM96	.data	96
 NUM97	.data	97
 NUM98	.data	98
@@ -119,6 +120,7 @@ NUM364	.data	364
 NUM370	.data	370
 NUM374	.data	374
 NUM390	.data	390
+NUM399	.data	399
 NUM400	.data	400
 NUM401	.data	401
 NUM408	.data	408
@@ -150,6 +152,7 @@ NUM480	.data	480
 NUM507	.data	507
 NUM531	.data	531
 NUM547	.data	547
+NUM560	.data	560
 NUM577	.data	577
 NUM578	.data	578
 NUM600	.data	600
@@ -159,13 +162,14 @@ NUM1001	.data	1001
 NUM1276	.data	1276
 NUM1721	.data	1721
 NUM2048	.data 	2048
+NUM13760    .data   13760
 NUM16383    .data   16383
 NUM16384    .data   16384
-NUM16500	.data	16500
+NUM16500    .data	16500
 NUM16519    .data	16519
 NUM25309    .data   25309
 NUM18673    .data   18673
 NUM28672    .data   28672
-NUM30000	.data	30000
+NUM30000    .data	30000
 NUM32767    .data   32767
-NUM32768	.data 32768
+NUM32768    .data 32768
