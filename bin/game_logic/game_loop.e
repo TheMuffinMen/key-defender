@@ -1,3 +1,4 @@
+		call	set_seed		set_seed_ra
 menu_loop	call	menu_screen		menu_screen_ra	
 		call	set_black_screen	set_black_screen_ra
 		be	serial_pause		0			0
@@ -9,7 +10,6 @@ ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_exist	NUM1
 		bne	ready_check		check_serial_data	NUM12
 skip_serial2	call	key_init		key_init_ra
-		call	set_seed		set_seed_ra
 		call	draw_play_screen	draw_play_screen_ra
 		cp	cntr_i			NUM0
 		cpta	NUM48			ann_cntr		cntr_i
@@ -131,11 +131,9 @@ str_to_serial	cp	str_copy_from		user_str_ptr
 		call	update_sent		update_sent_ra
 		be	clear_box		0			0
 		
-		
 not_found_sound	call	update_mult_status	update_mult_status_ra 
 		call	buzzer			buzzer_ra
 		be	clear_box		0			0
-
 
 clear_box	cp	erase_x			NUM256
 		cp	erase_y			NUM454
@@ -310,10 +308,6 @@ clock_mp	in	5			clock_end
 		in 	5			clock_start
 		be	move_ufos		0			0
 		
-		
-		
-				
-		
 move_ufos	cp	ufo_i			NUM0	
 move_ufos_loop	be	lose_check		ufo_i			NUM10
 		cpfa	ufo_cur			ufo_objects		ufo_i
@@ -366,9 +360,6 @@ send_lose	be	end_game_sp		which_mode		NUM1
 		call	gameover		gameover_ra
 		be	space_to_cont		0			0
 		
-		
-				
-						
 end_game	be	end_game_sp		which_mode		NUM1	
 		call	draw_win_screen		draw_end_ra	
 		call	winning			winning_ra
@@ -455,7 +446,6 @@ change_clock_speed	in	5			clock_end_speed
 			mult	speed_change		sp_clock_speed		NUM10		
 change_clock_speed_ret	ret	change_clock_speed_ra	
 
-
 clear_end_box	cp	erase_x			NUM256
 		cp	erase_y			NUM454
 		call	erase_typed		erase_typed_ra
@@ -465,8 +455,6 @@ clear_str_loop1	cpta	NUM0			user_str		user_str_len
 		bne	clear_str_loop1		user_str_len		NUM10
 		cp 	user_str_len		NUM0
 		ret	clear_end_box_ra	
-		
-		
 		
 erase_all_ufos	cp	ufo_i			NUM0	
 move_ufos_loop1	be	erase_all_ufos_ret	ufo_i			NUM10
@@ -487,7 +475,8 @@ erase_all_ufos_ret	ret			erase_all_ufos_ra
 		
 		
 		
-		
+//Variables
+
 cntr_i			.data	0		
 clear_end_box_ra	.data	0
 erase_all_ufos_ra	.data	0
