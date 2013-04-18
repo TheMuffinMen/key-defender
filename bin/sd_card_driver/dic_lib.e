@@ -185,7 +185,7 @@ rand_array	    .data   0
 		    .data   0
 i_rand		    .data   0
 mod_rand_low	    .data   0
-rand_array_ptr	    .data   0
+rand_array_ptr	    .data   rand_array
 rand_micro_1	    .data   0
 rand_micro_2	    .data   0
 rand_micro_3	    .data   0     

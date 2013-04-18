@@ -23,7 +23,13 @@ NUM20	.data	20
 NUM21	.data	21
 NUM22	.data	22
 NUM24	.data	24
+NUM25	.data	25
+NUM26	.data	26
+NUM27	.data	27
+NUM28	.data	28
+NUM29	.data	29
 NUM30	.data	30
+NUM31	.data	31
 NUM32	.data	32
 NUM35   .data   35
 NUM37	.data	37

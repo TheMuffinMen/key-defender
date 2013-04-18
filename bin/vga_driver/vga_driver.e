@@ -16,7 +16,7 @@ check_res0_sbs	    in 61 vga_response
                     ret set_black_screen_ra
                     
 erase_function		out 	62 			NUM1		
-		    	sub	array_xstart		erase_x			NUM24
+		    	sub	array_xstart		erase_x			NUM29
 		    	cp	array_ystart		erase_y
 		    	add	array_xend		erase_x			NUM127
 		    	add	array_yend		erase_y			NUM62         				
