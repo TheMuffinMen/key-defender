@@ -34,7 +34,7 @@ skip_sent	cp	cur_mode		NUM0
 		cp	ufo_cntr		NUM0
 		cp	last_pos		NUM0
 		cp	sp_clock_speed		NUM100
-		cp	speed_change		NUM1000
+		cp	speed_change		NUM500
 		in 	5			clock_start
 		in	5			clock_start_sp
 		in	5			clock_start_speed
@@ -443,7 +443,7 @@ change_clock_speed	in	5			clock_end_speed
 			blt	change_clock_speed_ret	clock_diff_speed	speed_change
 			in	5			clock_start_speed
 			sub	sp_clock_speed		sp_clock_speed		NUM10
-			mult	speed_change		sp_clock_speed		NUM10		
+			mult	speed_change		sp_clock_speed		NUM5		
 change_clock_speed_ret	ret	change_clock_speed_ra	
 
 clear_end_box	cp	erase_x			NUM256
@@ -484,7 +484,7 @@ clock_start_speed	.data	0
 clock_end_speed		.data	0
 clock_diff_speed	.data	0
 change_clock_speed_ra	.data	0
-speed_change		.data	1000
+speed_change		.data	500
 sp_clock_speed		.data	100		
 update_scores_ra	.data	0
 WORDS_SENT_STR	.data	115
