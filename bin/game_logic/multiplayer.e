@@ -9,10 +9,23 @@ ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_exist	NUM1
 		bne	ready_check		check_serial_data	NUM12
 skip_serial2	call	key_init		key_init_ra
+		call	set_seed		set_seed_ra
 		call	draw_play_screen	draw_play_screen_ra
-		cp	ann_cntr		NUM48
-		cp	sent_cntr		NUM48
-		call	update_ann		update_ann_ra
+		cp	cntr_i			NUM0
+		cpta	NUM48			ann_cntr		cntr_i
+		add	cntr_i			cntr_i			NUM1
+clear_out_ann	be	next_clear_out		cntr_i			NUM4
+		cpta	NUM0			ann_cntr		cntr_i
+		add	cntr_i			cntr_i			NUM1
+		be	clear_out_ann		0			0
+next_clear_out	cp	cntr_i			NUM0
+		cpta	NUM48			sent_cntr		cntr_i
+		add	cntr_i			cntr_i			NUM1
+clear_out_sent	be	done_clearing		cntr_i			NUM4
+		cpta	NUM0			sent_cntr		cntr_i
+		add	cntr_i			cntr_i			NUM1
+		be	clear_out_sent		0			0
+done_clearing	call	update_ann		update_ann_ra
 		be	skip_sent		which_mode		NUM1
 		call	update_sent		update_sent_ra
 skip_sent	cp	cur_mode		NUM0
@@ -170,7 +183,6 @@ add_to_queue_sp	cp	sent_i			NUM0
 		be	add_ufos		queue_len		NUM5
 		add	queue_i			ufo_queue		queue_len
 		add	queue_len		queue_len		NUM1
-		call	set_seed		set_seed_ra
 		call	rand			rand_ra
 		cp	str_copy_from		rand_array_ptr
 		cp	str_copy_to		queue_i
@@ -347,7 +359,8 @@ check_inside	bne	lose_check_loop		free_y			NUM358
 check_outside	bne	lose_check_loop		free_y			NUM408
 		be	send_lose		0			0
 		
-send_lose	cp	serial_send_data	NUM3
+send_lose	be	end_game_sp		which_mode		NUM1	
+		cp	serial_send_data	NUM3
 		call	serial_send		serial_send_ra
 		call	draw_lose_screen	draw_end_ra
 		call	gameover		gameover_ra
@@ -475,7 +488,7 @@ erase_all_ufos_ret	ret			erase_all_ufos_ra
 		
 		
 		
-		
+cntr_i			.data	0		
 clear_end_box_ra	.data	0
 erase_all_ufos_ra	.data	0
 clock_start_speed	.data	0
