@@ -93,6 +93,7 @@ NUM146	.data	146
 NUM149	.data	149
 NUM156	.data	156
 NUM160	.data	160
+NUM162	.data	162
 NUM164	.data	164
 NUM165	.data	165
 NUM168	.data	168
@@ -106,12 +107,14 @@ NUM197	.data	197
 NUM200	.data	200
 NUM220	.data	220
 NUM230	.data	230
+NUM233	.data	233
 NUM250	.data	250
 NUM255	.data	255
 NUM256	.data	256
 NUM263  .data   263
 NUM270	.data	270
 NUM285	.data	285
+NUM298	.data	298
 NUM300	.data	300
 NUM319	.data	319
 NUM321	.data	321

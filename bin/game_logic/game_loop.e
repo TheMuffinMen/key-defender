@@ -386,7 +386,7 @@ update_ann	call	erase_update_ann	erase_update_ann_ra
 		call	draw_string		draw_string_ra
 		cp	str_copy_from		ann_cntr_ptr
 		cp	str_copy_to		draw_str_ptr
-		cp	str_x_start		NUM149
+		cp	str_x_start		NUM162
 		cp	str_y_start		NUM4
 		call	str_copy		str_copy_ra
 		call	draw_string		draw_string_ra		
@@ -397,12 +397,12 @@ update_sent	call	erase_update_sent	erase_update_sent_ra
 		cp	str_copy_from		WORDS_SENT_STR_PTR
 		cp	str_copy_to		draw_str_ptr
 		call	str_copy		str_copy_ra
-		cp	str_x_start		NUM220	
+		cp	str_x_start		NUM233	
 		cp	str_y_start		NUM4
 		call	draw_string		draw_string_ra
 		cp	str_copy_from		sent_cntr_ptr
 		cp	str_copy_to		draw_str_ptr
-		cp	str_x_start		NUM285
+		cp	str_x_start		NUM298
 		cp	str_y_start		NUM4
 		call	str_copy		str_copy_ra
 		call	draw_string		draw_string_ra		
@@ -497,6 +497,7 @@ WORDS_SENT_STR_PTR	.data	WORDS_SENT_STR
 WORDS_ANN_STR	.data	97
 		.data	110
 		.data	110
+		.data	105
 		.data	104
 		.data	105
 		.data	108
