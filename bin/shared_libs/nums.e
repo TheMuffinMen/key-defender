@@ -23,8 +23,17 @@ NUM20	.data	20
 NUM21	.data	21
 NUM22	.data	22
 NUM24	.data	24
+<<<<<<< HEAD
 NUM28	.data	28
+=======
+NUM25	.data	25
+NUM26	.data	26
+NUM27	.data	27
+NUM28	.data	28
+NUM29	.data	29
+>>>>>>> 02338f37ea0ff7fd3d3b23e1f82df9d886a6c91a
 NUM30	.data	30
+NUM31	.data	31
 NUM32	.data	32
 NUM33	.data	33
 NUM35   .data   35

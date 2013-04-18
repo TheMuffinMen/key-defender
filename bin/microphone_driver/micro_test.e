@@ -5,7 +5,7 @@ beginning	call	microphone		microphone_ra
 		blt	abs		micro_sample	NUM0
 display		out		3	micro_sample
 		be	beginning	1 	1
-abs		mult	micro_sample 	NUM_minus_1	micro_sample
+abs		mult	micro_sample 	NUMNEG1	micro_sample
 noDisplay	be 	display 	1 	1
 		halt
 #include microphone_driver.e

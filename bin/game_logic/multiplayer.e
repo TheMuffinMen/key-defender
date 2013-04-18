@@ -1,24 +1,28 @@
-		call	menu_screen		menu_screen_ra	
+		call	menu_screen		menu_screen_ra
+		be	skip_serial1		which_mode		NUM1	
+skip_serial1	call	set_black_screen	set_black_screen_ra
 		call	init_serial		init_serial_ra
-		call	set_black_screen	set_black_screen_ra
+		be	skip_serial2		which_mode		NUM1
 		cp	serial_send_data	NUM12
 		call	serial_send		serial_send_ra
 ready_check	call	check_serial		check_serial_ra
 		bne	ready_check		check_serial_exist	NUM1
 		bne	ready_check		check_serial_data	NUM12
-		call	key_init		key_init_ra
+skip_serial2	call	key_init		key_init_ra
 		call	draw_play_screen	draw_play_screen_ra
 		cp	ann_cntr		NUM48
 		cp	sent_cntr		NUM48
 		call	update_ann		update_ann_ra
+		be	skip_sent		which_mode		NUM1
 		call	update_sent		update_sent_ra
-		cp	cur_mode		NUM0
+skip_sent	cp	cur_mode		NUM0
 		cp	user_str_len		NUM0
 		cp	queue_len		NUM0
 		cp	ufo_cntr		NUM0
 		cp	last_pos		NUM0
 		in 	5			clock_start
 		in	5			clock_start_sp
+		in	5			clock_start_speed
 break		cp	sent_i			NUM0
 		
 		
@@ -36,7 +40,6 @@ game_loop	be	sp_game_loop		which_mode		NUM1
 sp_game_loop	call	key_response		key_response_ra	
 		be	clock_update		key_execute		NUM0
 		be	clock_update		key_input_pressed	NUM1
-		be 	mode_change		key_input_element	NUM10
 		be	eval_str		key_input_element	NUM32
 		blt	clock_update		key_input_element	NUM97
 		blt	add_char		key_input_element	NUM123
@@ -127,6 +130,7 @@ clear_str_loop	cpta	NUM0			user_str		user_str_len
 		add	user_str_len		user_str_len		NUM1
 		bne	clear_str_loop		user_str_len		NUM10
 		cp 	user_str_len		NUM0
+		be	sp_game_loop		which_mode		NUM1
 		be	game_serial		0			0
 		
 add_char	be	game_serial		user_str_len		NUM10
@@ -140,7 +144,8 @@ add_char	be	game_serial		user_str_len		NUM10
 		call	draw_string		draw_string_ra
 		be	game_serial		0			0
 			
-game_serial	call	check_serial		check_serial_ra
+game_serial	be	sp_game_loop		which_mode		NUM1	
+		call	check_serial		check_serial_ra
 		be	add_ufos		check_serial_exist	NUM0	
 		be	end_game		check_serial_data	NUM3
 gs_loop		cpta	check_serial_data	received_str		sent_i
@@ -158,6 +163,17 @@ add_to_queue	cp	sent_i			NUM0
 		cp	str_copy_to		queue_i
 		call	str_copy		str_copy_ra
 		be	add_ufos		0			0
+		
+add_to_queue_sp	cp	sent_i			NUM0	
+		be	add_ufos		queue_len		NUM5
+		add	queue_i			ufo_queue		queue_len
+		add	queue_len		queue_len		NUM1
+		call	set_seed		set_seed_ra
+		call	rand			rand_ra
+		cp	str_copy_from		rand_array_ptr
+		cp	str_copy_to		queue_i
+		call	str_copy		str_copy_ra
+		be	add_ufos		0			0		
 		
 add_ufos	be	clock_update		ufo_cntr		NUM10	
 		cp	pos_i			NUM0
@@ -270,16 +286,15 @@ update_loop	be	clock_update		queue_i			queue_len
 clock_update	be	clock_mp		which_mode		NUM2
 		in	5			clock_end_sp
 		sub	clock_diff_sp		clock_end_sp		clock_start_sp
-		be	random_ufo		clock_diff_sp		NUM10
+		call	change_clock_speed	change_clock_speed_ra		
+		blt	clock_mp		clock_diff_sp		sp_clock_speed
+		in	5			clock_start_sp
+		be	add_to_queue_sp		0			0
 clock_mp	in	5			clock_end
 		sub	clock_diff		clock_end		clock_start
 		blt	game_loop		clock_diff		NUM1
 		in 	5			clock_start
 		be	move_ufos		0			0
-		
-		
-		
-random_ufo	halt
 		
 		
 		
@@ -398,7 +413,15 @@ disp_not_a_word		cp	str_copy_from		NOT_A_WORD_PTR
 			cp	str_y_start		NUM4
 			call	draw_string		draw_string_ra
 end_mult_status_loop	ret	update_mult_status_ra
-		
+
+
+change_clock_speed	in	5			clock_end_speed
+			sub	clock_diff_speed	clock_end_speed		clock_start_speed
+			blt	change_clock_speed_ret	clock_diff_speed	speed_change
+			in	5			clock_start_speed
+			sub	sp_clock_speed		sp_clock_speed		NUM10
+			mult	speed_change		sp_clock_speed		NUM10		
+change_clock_speed_ret	ret	change_clock_speed_ra		
 		
 		
 //ufo_loop2	in	5			clock_start
@@ -438,6 +461,12 @@ end_mult_status_loop	ret	update_mult_status_ra
 //ufo_draw_ret	ret	ufo_draw_loop_ra
 
 
+clock_start_speed	.data	0
+clock_end_speed		.data	0
+clock_diff_speed	.data	0
+change_clock_speed_ra	.data	0
+speed_change		.data	1000
+sp_clock_speed		.data	100		
 update_scores_ra	.data	0
 WORDS_SENT_STR	.data	115
 		.data	101
