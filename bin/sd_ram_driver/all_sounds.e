@@ -114,6 +114,31 @@ sdram_num23	.data 23
 sdram_num1319	.data 1319
 sdram_num150	.data 150
 
+
+winning		cp	sdram_x		sdram_num550
+		cp	sdram_y		NUM24
+		cp	sdram_write	NUM0
+ram_win_loop	call	sdram	sd_ram_ra	
+		cp	speaker_sample	sdram_data_read
+		call	speaker		speaker_ra
+		add	sdram_x		sdram_x		NUM1
+		be	readforend_win	sdram_x		sdram_num1946
+		be	add_win_y		sdram_x		NUM2048
+		be	ram_win_loop	NUM0		NUM0
+add_win_y		cp	sdram_x		NUM0
+		add	sdram_y		sdram_y		NUM1
+		be	ram_win_loop	NUM0		NUM0
+readforend_win	be	end19		sdram_y		NUM42
+		be ram_win_loop	NUM0		NUM0	
+end19		ret	winning_ra
+
+winning_ra	.data 0
+sdram_num1946	.data 1946
+sdram_num550	.data 550
+
+
+
+
 soundtoram	cp	sdram_write	NUM1
 		cp	sdram_x		NUM0
 		cp	sdram_y		NUM0
@@ -129,7 +154,7 @@ callsd		call	sdcard		sdcard_ra
 
 addsd		add	sd_address_low	sd_address_low	NUM1
 
-		be	testend		sd_address_low	sdnum16384
+		be	testend		sd_address_low	sdnum24320
 
 		be	clearlow	sd_address_low	sdnum32768
 		
@@ -143,14 +168,14 @@ clearlow	cp	sd_address_low	NUM0
 		add	sd_address_high	sd_address_high	NUM1
 		be	callsd		NUM0	NUM0
 
-testend		be	end18	sd_address_high		NUM17
+testend		be	end18	sd_address_high		NUM18
 		be	aftertest	NUM0	NUM0
 
 end18		ret	read_sound_to_ram_ra
 
 
 sdnum32768	.data 32768
-sdnum16384	.data 16384
+sdnum24320	.data 24320
 read_sound_to_ram_ra	.data 0
 
 
