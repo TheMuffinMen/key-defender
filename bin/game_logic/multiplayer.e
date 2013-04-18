@@ -358,7 +358,7 @@ send_lose	cp	serial_send_data	NUM3
 						
 end_game	be	end_game_sp		which_mode		NUM1	
 		call	draw_win_screen		draw_end_ra	
-		call	winning			winning
+		call	winning			winning_ra
 		be	space_to_cont		0			0
 		
 end_game_sp	call	draw_lose_screen	draw_end_ra
