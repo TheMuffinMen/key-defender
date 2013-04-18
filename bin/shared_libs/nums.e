@@ -23,15 +23,11 @@ NUM20	.data	20
 NUM21	.data	21
 NUM22	.data	22
 NUM24	.data	24
-<<<<<<< HEAD
-NUM28	.data	28
-=======
 NUM25	.data	25
 NUM26	.data	26
 NUM27	.data	27
 NUM28	.data	28
 NUM29	.data	29
->>>>>>> 02338f37ea0ff7fd3d3b23e1f82df9d886a6c91a
 NUM30	.data	30
 NUM31	.data	31
 NUM32	.data	32
@@ -121,11 +117,13 @@ NUM319	.data	319
 NUM321	.data	321
 NUM324	.data	324
 NUM325	.data	325
+NUM339	.data	339
 NUM345	.data	345
 NUM348	.data	348
 NUM350	.data	350
 NUM354	.data	354
 NUM358	.data	358
+NUM359	.data	359
 NUM361	.data	361
 NUM364	.data	364
 NUM370	.data	370
@@ -169,6 +167,7 @@ NUM578	.data	578
 NUM600	.data	600
 NUM639	.data	639
 NUM640	.data	640
+NUM1000	.data	1000
 NUM1001	.data	1001
 NUM1276	.data	1276
 NUM1721	.data	1721

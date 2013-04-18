@@ -1,11 +1,17 @@
 //This program is going to draw the end screens
 //These are the you win and you lose screens
 
-draw_win_screen	    cp	    sd_address_low	NUM4033
+draw_win_screen	    cp		write_pixel_x1	NUM0
+			cp	write_pixel_x2	NUM639
+			cp	write_pixel_y1	NUM22
+			cp	write_pixel_y2	NUM359
+			cp	write_pixel_color	NUM0
+			call	write_pixel	write_pixel_ra
+		    cp	    sd_address_low	NUM4033
 		    cp	    sd_address_high	NUM28
 		    cp	    write_const_x	NUM80
 		    cp	    write_const_y	NUM30
-win_screen_outer    be	    done_end_win	write_const_y	NUM399
+win_screen_outer    be	    done_end_screen	write_const_y	NUM339
 		    cp	    write_const_x	NUM80
 win_screen_inner    be	    win_y_incr		write_const_x	NUM560
 		    call    sdcard		sdcard_ra
@@ -24,11 +30,17 @@ modify_sd_end	    add	    sd_address_high	sd_address_high	NUM1
 
 //draws you lose screen
 
-draw_lose_screen    cp	    sd_address_low	NUM17793
+draw_lose_screen    cp		write_pixel_x1	NUM0
+			cp	write_pixel_x2	NUM639
+			cp	write_pixel_y1	NUM22
+			cp	write_pixel_y2	NUM359
+			cp	write_pixel_color	NUM0
+			call	write_pixel	write_pixel_ra
+		    cp	    sd_address_low	NUM17793
 		    cp	    sd_address_high	NUM33
 		    cp	    write_const_x	NUM80
 		    cp	    write_const_y	NUM30
-lose_screen_outer   be	    done_end_lose	write_const_y	NUM399
+lose_screen_outer   be	    done_end_screen	write_const_y	NUM339
 		    cp	    write_const_x	NUM80
 lose_screen_inner   be	    lose_y_incr		write_const_x	NUM560
 		    call    sdcard		sdcard_ra
@@ -44,20 +56,9 @@ lose_y_incr	    add	    write_const_y	write_const_y	NUM1
 modify_sd_end_lose  add	    sd_address_high	sd_address_high	NUM1
 		    cp	    sd_address_low	NUM0
 		    be	    lose_x_incr		0		0
-done_end_win	    call    winning		winning_ra
-		    be	    done_end_screen	0		0
 
-done_end_lose	    call    gameover		gameover_ra
-		    
 
-done_end_screen	    call    key_init		key_init_ra
-end_select	    call    key_response	key_response_ra
-		    be	    end_select		key_execute	    NUM0
-		    be	    end_select		key_input_pressed   NUM1
-		    be	    done_end		key_input_element   NUM32
-		    be	    done_end_screen	0		    0
-
-done_end	    ret	    draw_end_ra
+done_end_screen	    ret	    draw_end_ra
 
 draw_end_ra	    .data	0
 

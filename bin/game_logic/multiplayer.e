@@ -1,8 +1,8 @@
-		call	menu_screen		menu_screen_ra
-		be	skip_serial1		which_mode		NUM1	
-skip_serial1	call	set_black_screen	set_black_screen_ra
+menu_loop	call	menu_screen		menu_screen_ra	
+		call	set_black_screen	set_black_screen_ra
+		be	serial_pause		0			0
+serial_pause	be	skip_serial2		which_mode		NUM1
 		call	init_serial		init_serial_ra
-		be	skip_serial2		which_mode		NUM1
 		cp	serial_send_data	NUM12
 		call	serial_send		serial_send_ra
 ready_check	call	check_serial		check_serial_ra
@@ -20,6 +20,8 @@ skip_sent	cp	cur_mode		NUM0
 		cp	queue_len		NUM0
 		cp	ufo_cntr		NUM0
 		cp	last_pos		NUM0
+		cp	sp_clock_speed		NUM100
+		cp	speed_change		NUM1000
 		in 	5			clock_start
 		in	5			clock_start_sp
 		in	5			clock_start_speed
@@ -347,12 +349,29 @@ check_outside	bne	lose_check_loop		free_y			NUM408
 		
 send_lose	cp	serial_send_data	NUM3
 		call	serial_send		serial_send_ra
+		call	draw_lose_screen	draw_end_ra
 		call	gameover		gameover_ra
-		be	end_game		0			0
+		be	space_to_cont		0			0
+		
 		
 				
 						
-end_game	halt		
+end_game	be	end_game_sp		which_mode		NUM1	
+		call	draw_win_screen		draw_end_ra	
+		call	winning			winning
+		be	space_to_cont		0			0
+		
+end_game_sp	call	draw_lose_screen	draw_end_ra
+		call	gameover		gameover_ra
+		be	space_to_cont		0			0
+		
+space_to_cont	call	key_response		key_response_ra	
+		be	space_to_cont		key_execute		NUM0
+		be	space_to_cont		key_input_pressed	NUM1
+		bne	space_to_cont		key_input_element	NUM32
+		call	erase_all_ufos		erase_all_ufos_ra
+		call	clear_end_box		clear_end_box_ra
+		be	menu_loop		0			0		
 		
 update_ann	call	erase_update_ann	erase_update_ann_ra	
 		cp	str_copy_from		WORDS_ANN_STR_PTR
@@ -421,46 +440,44 @@ change_clock_speed	in	5			clock_end_speed
 			in	5			clock_start_speed
 			sub	sp_clock_speed		sp_clock_speed		NUM10
 			mult	speed_change		sp_clock_speed		NUM10		
-change_clock_speed_ret	ret	change_clock_speed_ra		
-		
-		
-//ufo_loop2	in	5			clock_start
-//end_chk	in	5			clock_end
-//		sub	clock_diff		clock_end		clock_start
-//		bne	end_chk			clock_diff		NUM2
-//		cp	ufo_i			NUM0
-//		cp	ufo_erase		NUM1
-//		call	ufo_draw_loop		ufo_draw_loop_ra
-//		be	ufo_move		0			0
-//end		halt	
-		
-//ufo_draw_loop	be	ufo_draw_ret		ufo_i			NUM10
-//		cpfa	ufo_cur			ufo_objects		ufo_i
-//		add	ufo_i			ufo_i			NUM1
-//		cpfa	ufo_deref		0			ufo_cur
-//		be	ufo_draw_loop		ufo_deref		NUM0
-//		add	ufo_cur			ufo_cur			NUM1
-//		cpfa	ufo_deref		0			ufo_cur
-//		cp	str_copy_from		ufo_deref
-//		cp	str_copy_to		draw_str_ptr
-//		call	str_copy		str_copy_ra
-//		add	ufo_cur			ufo_cur			NUM1
-//		cpfa	ufo_deref		0			ufo_cur
-//		cp	ufo_x			ufo_deref
-//		add	ufo_cur			ufo_cur			NUM1
-//		cpfa	ufo_deref		0			ufo_cur
-//		cp	ufo_y			ufo_deref
-//		be	not_erase		ufo_erase		NUM0
-//		cp	erase_x			ufo_x
-//		cp	erase_y			ufo_y
-//		call	erase_function		erase_function_ra
-//		add	ufo_y			ufo_y			NUM2
-//		cpta	ufo_y			0			ufo_cur
-//not_erase	call	draw_ufo		draw_ufo_ra
-//		be	ufo_draw_loop		0			0
-//ufo_draw_ret	ret	ufo_draw_loop_ra
+change_clock_speed_ret	ret	change_clock_speed_ra	
 
 
+clear_end_box	cp	erase_x			NUM256
+		cp	erase_y			NUM454
+		call	erase_typed		erase_typed_ra
+		cp	user_str_len		NUM0
+clear_str_loop1	cpta	NUM0			user_str		user_str_len
+		add	user_str_len		user_str_len		NUM1
+		bne	clear_str_loop1		user_str_len		NUM10
+		cp 	user_str_len		NUM0
+		ret	clear_end_box_ra	
+		
+		
+		
+erase_all_ufos	cp	ufo_i			NUM0	
+move_ufos_loop1	be	erase_all_ufos_ret	ufo_i			NUM10
+		cpfa	ufo_cur			ufo_objects		ufo_i
+		add	ufo_i			ufo_i			NUM1
+		cpta	NUM0			0			ufo_cur
+		add	ufo_cur			ufo_cur			NUM2
+		cpfa	ufo_deref		0			ufo_cur
+		cp	ufo_x			ufo_deref
+		add	ufo_cur			ufo_cur			NUM1
+		cpfa	ufo_deref		0			ufo_cur
+		cp	ufo_y			ufo_deref
+		cp	erase_x			ufo_x
+		cp	erase_y			ufo_y
+		call	erase_function		erase_function_ra
+		be	move_ufos_loop1		0			0		
+erase_all_ufos_ret	ret			erase_all_ufos_ra		
+		
+		
+		
+		
+		
+clear_end_box_ra	.data	0
+erase_all_ufos_ra	.data	0
 clock_start_speed	.data	0
 clock_end_speed		.data	0
 clock_diff_speed	.data	0
@@ -828,3 +845,4 @@ ufo_queue5	.data	0
 #include ../sd_ram_driver/all_sounds.e
 #include ../vga_driver/menu_screen.e
 #include inc_str.e
+#include ../vga_driver/draw_end_screen.e
