@@ -2,8 +2,8 @@
 //modes at the menu screen
 
 menu_screen     call	soundtoram	    read_sound_to_ram_ra
-		cp      sd_address_low      NUM16500
-                cp      sd_address_high     NUM17
+		cp      sd_address_low      NUM24512
+                cp      sd_address_high     NUM18
       		cp      write_const_x       NUM0
                 cp      write_const_y       NUM0
                 cp      sd_write            NUM0
