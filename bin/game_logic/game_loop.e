@@ -305,8 +305,9 @@ clock_update	be	clock_mp		which_mode		NUM2
 		be	add_to_queue_sp		0			0
 clock_mp	in	5			clock_end
 		sub	clock_diff		clock_end		clock_start
+		blt	clock_max		clock_diff		NUM0
 		blt	game_loop		clock_diff		NUM1
-		in 	5			clock_start
+clock_max	in 	5			clock_start
 		be	move_ufos		0			0
 		
 move_ufos	cp	ufo_i			NUM0	
