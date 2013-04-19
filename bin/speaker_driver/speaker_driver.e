@@ -11,7 +11,3 @@ speaker_loop2	in  41   speaker_response
 speaker_sample      .data 0
 speaker_response    .data 0
 speaker_ra          .data 0
-
-
-
-

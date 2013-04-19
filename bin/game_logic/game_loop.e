@@ -844,7 +844,7 @@ ufo_queue5	.data	0
 #include ../vga_driver/ufo_function.e
 #include ../shared_libs/str_help.e
 #include ../serial_driver/serial_driver.e
-#include ../keyboard_driver/driver.e
+#include ../keyboard_driver/keyboard_driver.e
 #include ../sd_card_driver/dic_lib.e
 #include ../sd_ram_driver/all_sounds.e
 #include ../vga_driver/menu_screen.e

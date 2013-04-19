@@ -1,3 +1,4 @@
+//Plays laser shooting sound
 laser1		cp	sdram_x		NUM0
 		cp	sdram_y		NUM0
 		cp	sdram_write	NUM0
@@ -18,7 +19,7 @@ end13		ret	laser1_ra
 laser1_ra	.data 0
 
 
-
+//Plays laser shooting sound 2
 lasergun		cp	sdram_x		NUM436
 		cp	sdram_y		NUM2
 		cp	sdram_write	NUM0
@@ -41,9 +42,7 @@ end14		ret	lasergun_ra
 lasergun_ra	.data 0
 
 
-
-
-
+//Plays word successfully sent sound
 chimes	cp	sdram_x		NUM1721
 		cp	sdram_y		NUM3
 		cp	sdram_write	NUM0
@@ -66,9 +65,7 @@ end15		ret	chimes_ra
 chimes_ra	.data 0
 
 
-
-
-
+//Plays word not successfully sent sound
 buzzer		cp	sdram_x		NUM1276
 		cp	sdram_y		NUM6
 		cp	sdram_write	NUM0
@@ -91,7 +88,7 @@ sdram_num1219	.data 1219
 
 
 
-
+//Plays game over sound
 gameover	cp	sdram_x		sdram_num1319
 		cp	sdram_y		NUM9
 		cp	sdram_write	NUM0
@@ -115,6 +112,7 @@ sdram_num1319	.data 1319
 sdram_num150	.data 150
 
 
+//Plays winning sound
 winning		cp	sdram_x		sdram_num550
 		cp	sdram_y		NUM24
 		cp	sdram_write	NUM0
@@ -137,8 +135,7 @@ sdram_num1946	.data 1946
 sdram_num550	.data 550
 
 
-
-
+//Reads the sound files from the SD card into the SDRAM
 soundtoram	cp	sdram_write	NUM1
 		cp	sdram_x		NUM0
 		cp	sdram_y		NUM0
@@ -182,5 +179,4 @@ read_sound_to_ram_ra	.data 0
 
 
 
-//#include ../sd_card_driver/sd_card_driver.e
 #include sd_ram_driver.e

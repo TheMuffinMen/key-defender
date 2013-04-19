@@ -1,0 +1,78 @@
+This file contains details on the contents of all the files included in 
+Key Defender
+
+key-defender.mif
+	Is the final mif for Key Defender
+
+game_logic/game_loop.e
+	main function that controls the main game loop
+
+game_logic/inc_str.e
+	contains the function that increases the value of a numeric string
+	by one
+
+microphone_driver/microphone_driver.e
+	contains the driver for the microphone
+
+sd_ram_driver/all_sounds.e
+	is capable of playing all sounds and can read sounds from the sd card
+	and put them on SDRAM
+
+sd_ram_driver/sd_ram_driver.e
+	contains the driver for the SDRAM
+
+sd_card_driver/final_sd_file.bin
+	contains all the items that are being put onto the SD card in binary
+
+sd_card_driver/dic_lib.e
+	contains the function for searching through a 
+	dictionary using binary search. Also contains the random word generator
+
+sd_card_driver/words
+	contains the full dictionary that we found in plain text format
+
+sd_card_driver/create_binary.cpp
+	program used to convert filtered_words to binary for the SD card
+	It can also create binary files containing only zeros for use
+	as void space to conveniently line up the SD card indexes
+
+sd_card_driver/filtered_words
+	filtered version of words to fit our needs for the game
+
+sd_card_driver/sd_card_driver.e
+	contains the driver for the SD card
+
+sd_card_driver/dic_filter.py
+	filters "words" to a shortened version (filtered_words)
+
+shared_libs/nums.e
+	contains all the static numbers in memory used in any file
+
+shared_libs/str_help.e
+	contains the functions for copying and comparing strings
+
+keyboard_driver/keyboard_driver.e
+	contains the keyboard driver
+
+serial_driver/serial_driver.e
+	contains the driver for the serial port
+
+speaker_driver/speaker_driver.e
+	contains the driver for the speaker
+
+vga_driver/menu_screen.e
+	contains the function used for drawing the main menu screen
+
+vga_driver/draw_end_screen.e
+	contains the functions used for drawing the two seperate winning 
+	and losing screens
+
+vga_driver/ufo_function.e
+	contains the function for drawing UFOs and the strings 
+	associated with them
+
+vga_driver/vga_driver.e
+	contains the VGA driver
+
+vga_driver/which_character.e
+	contains the font library used in Key Defender
