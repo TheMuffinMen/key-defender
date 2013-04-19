@@ -296,6 +296,7 @@ update_loop	be	clock_update		queue_i			queue_len
 		be	update_loop		0			0
 		
 clock_update	be	clock_mp		which_mode		NUM2
+		be	clock_mp	queue_len		NUM5
 		in	5			clock_end_sp
 		sub	clock_diff_sp		clock_end_sp		clock_start_sp
 		call	change_clock_speed	change_clock_speed_ra		
